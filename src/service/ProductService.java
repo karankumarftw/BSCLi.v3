@@ -3,7 +3,7 @@ import dao.ProductDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class ProductService {
-	public  String productDelete(String code) throws SQLException {
+	public String productDelete(String code) throws SQLException {
 		ProductDAO productDAO = new ProductDAO();
 		return productDAO.delete(code);
 	}

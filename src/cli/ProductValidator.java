@@ -11,7 +11,7 @@ public class ProductValidator {
 		electronics,
 		stationery,
 	}
-	public static String ProductCreateValidator(String productCode,String name,String unit,String type,String price,String stock) throws SQLException {
+	public static String productCreateValidator(String productCode,String name,String unit,String type,String price,String stock) throws SQLException {
 		if(productCode.length()<3 || productCode.length()>6){
 			return "Product code length should be 2 to 6 characters";
 		}
