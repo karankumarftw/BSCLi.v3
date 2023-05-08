@@ -20,6 +20,16 @@ public class UnitDAO implements Delete , defaultList , UnitCreate{
 		return "Unit created Successfully";
 	}
 
+	public String unitEdit(Unit unitObj) throws SQLException {
+		PreparedStatement ps = DBConnection.connection.prepareStatement("update unit set unit_name = '?', description = '?' , is_dividable = ? where unit_code = ?");
+		ps.setString(1, unitObj.getName());
+		ps.setString(2, unitObj.getDescription());
+		ps.setBoolean(3, unitObj.getIsDividable());
+		ps.setString(4, unitObj.getCode());
+		ps.executeUpdate();
+		return "Unit edited Successfully";
+	}
+
 	@Override
 	public String delete(String code) throws SQLException {
 		String query = "delete from unit where unit_code = '"+code+"'";

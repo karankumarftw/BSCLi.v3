@@ -1,11 +1,12 @@
 package cli;
 
 import modules.unit.UnitCreate;
+import modules.unit.UnitEdit;
 
 import java.sql.SQLException;
 
 public class UnitValidator {
-	public static String unitCreateValidator(String name,String code,String description,String isDividable) throws SQLException {
+	public static String unitCreateValidator(String createOrEdit,String name,String code,String description,String isDividable) throws SQLException {
 		if (name.length() < 3 || name.length() > 30) {
 			return "Product name length should be 3 to 30 characters";
 		}
@@ -21,7 +22,10 @@ public class UnitValidator {
 		else {
 			return "isDividable value should be either true or false";
 		}
-		return UnitCreate.create(name, code, description, dividable);
+		if(createOrEdit.equals("create")) {
+			return UnitCreate.create(name, code, description, dividable);
+		}
+		return UnitEdit.edit(name, code, description, dividable);
 	}
 
 }
