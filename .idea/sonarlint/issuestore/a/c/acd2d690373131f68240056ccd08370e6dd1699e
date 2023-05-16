@@ -1,0 +1,10 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¢îó–ÿÿÿÿÿ
+U
+java:S1118	":Add a private constructor to hide the implicit public one.(Õ¼¤ûûÿÿÿÿ
+S
+java:S1854"=Remove this useless assignment to local variable "dividable".(‘¶ê
+S
+java:S1854"=Remove this useless assignment to local variable "dividable".(ÓÌÎ›
+D
+java:S1481".Remove this unused "dividable" local variable.(ú¤

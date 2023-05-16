@@ -1,0 +1,75 @@
+
+]
+java:S1192""GDefine a constant instead of duplicating this literal "create" 3 times.(Óô­
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¢îó–ÿÿÿÿÿ
+=
+java:S2189""Add an end condition to this loop.(ü§è½ùÿÿÿÿ
+h	java:S100
+"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹™¬Èûÿÿÿÿ
+m
+java:S3776
+"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(‹™¬Èûÿÿÿÿ
+Z
+java:S1854"?Remove this useless assignment to local variable "unitService".(Ê˜¿¶øÿÿÿÿ
+X
+java:S1854"BRemove this useless assignment to local variable "productService".(³´Ÿê
+I
+java:S1481"3Remove this unused "productService" local variable.(³´Ÿê
+K
+java:S1481"0Remove this unused "unitService" local variable.(Ê˜¿¶øÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(›Äæ÷üÿÿÿÿ
+a	java:S128"LEnd this switch case with an unconditional break, return or throw statement.(ôéØá
+<	java:S131""Add a default case to this switch.(ãÙµùÿÿÿÿ
+M	java:S106"9Replace this use of System.out or System.err by a logger.(˜€ì9
+N	java:S106!"9Replace this use of System.out or System.err by a logger.(Ó¶’´
+S	java:S1064"9Replace this use of System.out or System.err by a logger.(±ÑÏÄşÿÿÿÿ
+N	java:S1066"9Replace this use of System.out or System.err by a logger.(õöÊ
+Q	java:S125;"<This block of commented-out lines of code should be removed.(ôš˜
+V
+java:S1118¦":Add a private constructor to hide the implicit public one.(šœ–Ãøÿÿÿÿ
+O	java:S106©"9Replace this use of System.out or System.err by a logger.(ã¥ºş
+T	java:S106«"9Replace this use of System.out or System.err by a logger.(ê×¾¦ùÿÿÿÿ
+O	java:S106­"9Replace this use of System.out or System.err by a logger.(Œ……¦
+O	java:S106¯"9Replace this use of System.out or System.err by a logger.(Üš¢ê
+V
+java:S1118¶":Add a private constructor to hide the implicit public one.(Ğ‰·Äøÿÿÿÿ
+O	java:S106¹"9Replace this use of System.out or System.err by a logger.(ã¥ºş
+T	java:S106»"9Replace this use of System.out or System.err by a logger.(ê×¾¦ùÿÿÿÿ
+O	java:S106½"9Replace this use of System.out or System.err by a logger.(Œ……¦
+O	java:S106¿"9Replace this use of System.out or System.err by a logger.(Üš¢ê
+Q
+java:S1118Æ":Add a private constructor to hide the implicit public one.(âáäŸ
+T	java:S106É"9Replace this use of System.out or System.err by a logger.(ƒ«ÈÎıÿÿÿÿ
+T	java:S106Ë"9Replace this use of System.out or System.err by a logger.(±ôÖ÷úÿÿÿÿ
+T	java:S106Í"9Replace this use of System.out or System.err by a logger.(Àå¢õÿÿÿÿÿ
+O	java:S106Ï"9Replace this use of System.out or System.err by a logger.(õ¶À
+T	java:S106Ñ"9Replace this use of System.out or System.err by a logger.(ÁËõãúÿÿÿÿ
+O	java:S106Ó"9Replace this use of System.out or System.err by a logger.(Ö“îè
+Q
+java:S1118Ù":Add a private constructor to hide the implicit public one.(ôõÙü
+T	java:S106Ü"9Replace this use of System.out or System.err by a logger.(ƒ«ÈÎıÿÿÿÿ
+T	java:S106Ş"9Replace this use of System.out or System.err by a logger.(±ôÖ÷úÿÿÿÿ
+T	java:S106à"9Replace this use of System.out or System.err by a logger.(Àå¢õÿÿÿÿÿ
+O	java:S106â"9Replace this use of System.out or System.err by a logger.(õ¶À
+T	java:S106ä"9Replace this use of System.out or System.err by a logger.(ÁËõãúÿÿÿÿ
+O	java:S106æ"9Replace this use of System.out or System.err by a logger.(Ö“îè
+V
+java:S1118ì":Add a private constructor to hide the implicit public one.(Å“Ìéúÿÿÿÿ
+P
+java:S6126î"2Replace this String concatenation with Text block.(É§šà8Ì‘Íš‚1
+V
+java:S1118":Add a private constructor to hide the implicit public one.(¸…›•ıÿÿÿÿ
+I
+java:S6126"2Replace this String concatenation with Text block.(×£Öµ
+V
+java:S1118 ":Add a private constructor to hide the implicit public one.(À‹¢—ÿÿÿÿÿ
+I
+java:S6126¢"2Replace this String concatenation with Text block.(¯Óœ 
+Q
+java:S1118±":Add a private constructor to hide the implicit public one.(œğ¨
+T	java:S106´"9Replace this use of System.out or System.err by a logger.(ã‚¹…ıÿÿÿÿ
+T	java:S106¶"9Replace this use of System.out or System.err by a logger.(Î‡Û¯ùÿÿÿÿ
+O	java:S106¸"9Replace this use of System.out or System.err by a logger.(åş¿ç
+O	java:S106º"9Replace this use of System.out or System.err by a logger.(™Ë½¹
+O	java:S106¼"9Replace this use of System.out or System.err by a logger.(–Ç÷û
+O	java:S106¾"9Replace this use of System.out or System.err by a logger.(êÿ¤œ

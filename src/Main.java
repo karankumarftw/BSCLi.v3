@@ -1,5 +1,4 @@
-import cli.InputHandler;
-
+import cliController.InputHandler;
 import java.sql.SQLException;
 
 public class Main {

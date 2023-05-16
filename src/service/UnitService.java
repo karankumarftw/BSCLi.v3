@@ -1,18 +1,26 @@
 package service;
 
 import dao.UnitDAO;
-
+import entity.Unit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UnitService {
+  UnitDAO unitDAO = new UnitDAO();
+
+  public String unitCreate(Unit unit) throws SQLException {
+    return unitDAO.unitCreate(unit);
+  }
+
+  public String unitEdit(Unit unit) throws SQLException {
+    return unitDAO.unitEdit(unit);
+  }
+
   public String unitDelete(String code) throws SQLException {
-    UnitDAO unitDAO = new UnitDAO();
     return unitDAO.delete(code);
   }
 
   public ResultSet unitList() throws SQLException {
-    UnitDAO unitDAO = new UnitDAO();
     return unitDAO.list();
   }
 }

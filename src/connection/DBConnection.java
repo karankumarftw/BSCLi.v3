@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 public class DBConnection {
   public static final java.sql.Connection connection;
+  public static final Statement statement;
 
   static {
     try {
@@ -16,8 +17,6 @@ public class DBConnection {
       throw new RuntimeException(e);
     }
   }
-
-  public static final Statement statement;
 
   static {
     try {
