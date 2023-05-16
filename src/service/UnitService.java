@@ -2,8 +2,9 @@ package service;
 
 import dao.UnitDAO;
 import entity.Unit;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UnitService {
   UnitDAO unitDAO = new UnitDAO();
@@ -20,7 +21,7 @@ public class UnitService {
     return unitDAO.delete(code);
   }
 
-  public ResultSet unitList() throws SQLException {
+  public ArrayList<Unit> unitList() throws SQLException {
     return unitDAO.list();
   }
 }

@@ -6,6 +6,7 @@ import service.UserService;
 
 public class UserValidator {
   static String userValidator(
+          int id,
       String userType,
       String userName,
       String userPassword,
@@ -42,6 +43,7 @@ public class UserValidator {
 
     User user =
         new User(
+                id,
             userType,
             userName,
             userPassword,

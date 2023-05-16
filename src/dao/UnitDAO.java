@@ -5,9 +5,10 @@ import entity.Unit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class UnitDAO implements Delete, DefaultList, UnitCreate {
-    public static boolean isAvailable(String unitCode) throws SQLException {
+public class UnitDAO implements Delete, UnitCreate {
+    public  boolean isAvailable(String unitCode) throws SQLException {
         String query = "select * from unit where unit_code = '" + unitCode + "'";
         try (ResultSet rs = DBConnection.statement.executeQuery(query)) {
             if (rs.next()) {
@@ -48,9 +49,18 @@ public class UnitDAO implements Delete, DefaultList, UnitCreate {
         return "Unit deleted successfully";
     }
 
-    @Override
-    public ResultSet list() throws SQLException {
+    public ArrayList<Unit> list() throws SQLException {
+        ArrayList<Unit> listOfUnits = new ArrayList<>();
         String query = "select * from unit ";
-        return DBConnection.statement.executeQuery(query);
+        ResultSet rs = DBConnection.statement.executeQuery(query);
+        while(rs.next()){
+            String name = rs.getString("unit_name");
+            String code = rs.getString("unit_code");
+            String description = rs.getString("description");
+            boolean isDividable = rs.getBoolean("is_dividable");
+            Unit unit = new Unit(name,code,description,isDividable);
+            listOfUnits.add(unit);
+        }
+        return listOfUnits;
     }
 }

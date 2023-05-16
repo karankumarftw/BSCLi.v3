@@ -1,7 +1,7 @@
 package entity;
 
 public class User {
-    private String userID;
+    private int userID;
     private String userType;
     private String userName;
     private String password;
@@ -9,7 +9,8 @@ public class User {
     private String lastName;
     private long userPhoneNumber;
 
-    public User(String userType, String userName, String password, String firstName, String lastName, long userPhoneNumber){
+    public User(int userId,String userType, String userName, String password, String firstName, String lastName, long userPhoneNumber){
+        setUserID(userId);
         setUserType(userType);
         setUserName(userName);
         setPassword(password);
@@ -18,11 +19,11 @@ public class User {
         setUserPhoneNumber(userPhoneNumber);
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

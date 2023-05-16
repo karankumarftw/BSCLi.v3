@@ -10,15 +10,13 @@ public class DBConnection {
 
   static {
     try {
-      connection =
-          DriverManager.getConnection(
-              "jdbc:postgresql://localhost:5432/vels", "postgres", "postgres");
+      String url = "jdbc:postgresql://floppy.db.elephantsql.com/wfnutumw";
+      String database = "wfnutumw";
+      String password = "us_9Vx_x6JpwY19OXqMPYJh1r3nTs_El";
+      connection = DriverManager.getConnection(url, database, password);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  static {
     try {
       statement = connection.createStatement();
     } catch (SQLException e) {
