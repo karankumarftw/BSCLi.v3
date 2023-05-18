@@ -42,7 +42,7 @@ public class ProductDAO implements ProductCreate, Delete {
 		return "Product deleted successfully";
 	}
 
-	private ArrayList results(String query) throws SQLException {
+	private ArrayList<Product> results(String query) throws SQLException {
 		ArrayList<Product> listOfProducts = new ArrayList<>();
 		ResultSet rs = DBConnection.statement.executeQuery(query);
 		while (rs.next()) {
