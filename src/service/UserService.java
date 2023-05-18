@@ -2,7 +2,7 @@ package service;
 
 import dao.UserDAO;
 import entity.User;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class UserService {
         return userDAO.delete(String.valueOf(userID));
     }
 
-    public String createUser(User user) throws SQLException {
+    public String userCreate(User user) throws SQLException {
         return userDAO.createUser(user);
     }
 

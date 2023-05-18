@@ -1,0 +1,189 @@
+Table format
+//            ResultSet rs = ProductController.ProductList.rs;
+//            System.out.println(
+//                line
+//                    + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+//                    + reset);
+//            System.out.println(
+//                String.format(title + "%20s", "CODE")
+//                    + String.format("%20s", "NAME")
+//                    + String.format("%20s", "UNIT")
+//                    + String.format("%20s", "TYPE")
+//                    + String.format("%20s", "PRICE")
+//                    + String.format("%20s", "STOCK")
+//                    + reset);
+//            System.out.println(
+//                line
+//                    + "-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+//                    + reset);
+//            while (rs.next()) {
+//              String code = rs.getString("code");
+//              String name = rs.getString("name");
+//              String unit = rs.getString("unit");
+//              String type = rs.getString("type");
+//              String price = rs.getString("price");
+//              String stock = rs.getString("stock");
+//              System.out.println(
+//                  String.format("%20s", code)
+//                      + String.format("%20s", name)
+//                      + String.format("%20s", unit)
+//                      + String.format("%20s", type)
+//                      + String.format("%20s", price)
+//                      + String.format("%20s", stock));
+//            }
+
+
+
+
+switch (cmdBySpaceAndComma[0]) {
+          // This is product Routing
+        case "product":
+          {
+            if (cmdBySpaceAndComma[2].equals("help")) {
+              System.out.println(ProductHelp.productHelp());
+            }
+            break;
+          }
+
+          // This is unit Routing
+        case "unit":
+          {
+            if (cmdBySpaceAndComma[1].equals("help")) {
+              System.out.println(UnitHelp.unitEditHelp());
+            } else if (cmdBySpaceAndComma[1].equals("create")) {
+              try {
+                UnitValidator.unitCreateValidator(
+                    cmdBySpaceAndComma[1],
+                    cmdBySpaceAndComma[2],
+                    cmdBySpaceAndComma[3],
+                    cmdBySpaceAndComma[4],
+                    cmdBySpaceAndComma[5]);
+              } catch (Exception error) {
+                UnitCreate.unitCreateByEnter();
+              }
+            }
+          }
+
+          // This is user Routing
+        case "user":
+          {
+            UserService userService = new UserService();
+            if (cmdBySpaceAndComma[1].equals("help")) {
+              System.out.println(UserHelp.userHelp());
+            } else if (cmdBySpaceAndComma[1].equals("create")) {
+              System.out.println(UserCreateByEnter.userCreateByEnter());
+            } else if (cmdBySpaceAndComma[1].equals("delete")) {
+              System.out.println(userService.userDelete(Integer.parseInt(cmdBySpaceAndComma[2])));
+            } else if (cmdBySpaceAndComma[1].equals("list")) {
+              ResultSet rs = userService.userList();
+              while (rs.next()) {
+                System.out.println(rs.getString("user_name"));
+              }
+            }
+          }
+      }
+
+      //      if (cmdBySpaceAndComma[0].equals("product") && cmdBySpaceAndComma[1].equals("create"))
+      // {
+      //        try {
+      //          System.out.println(
+      //              ProductValidator.productCreateValidator(
+      //                  cmdBySpaceAndComma[2],
+      //                  cmdBySpaceAndComma[3],
+      //                  cmdBySpaceAndComma[4],
+      //                  cmdBySpaceAndComma[5],
+      //                  cmdBySpaceAndComma[6],
+      //                  cmdBySpaceAndComma[7]));
+      //        } catch (Exception e) {
+      //          System.out.println(ProductCreate.productCreateByEnter());
+      //        }
+      //      } else if (cmdBySpaceAndComma[0].equals("product") &&
+      // cmdBySpaceAndComma[1].equals("list")) {
+      //        try {
+      //          ResultSet rs =
+      //              productService.productListWithPageLimitAndPageCount(
+      //                  cmdBySpaceAndComma[3], cmdBySpaceAndComma[4]);
+      //          while (rs.next()) {
+      //            System.out.println(rs.getString("name"));
+      //          }
+      //        } catch (Exception error) {
+      //          try {
+      //            ResultSet rs = productService.productListWithPageLimit(cmdBySpaceAndComma[3]);
+      //            while (rs.next()) {
+      //              System.out.println(rs.getString("name"));
+      //            }
+      //          } catch (Exception err) {
+      //            ResultSet rs = productService.productList();
+      //            while (rs.next()) {
+      //              System.out.println(rs.getString("name"));
+      //            }
+      //          }
+      //        }
+      //
+      //      } else if (cmdBySpaceAndComma[0].equals("product") &&
+      // cmdBySpaceAndComma[1].equals("help")) {
+      //        System.out.println(ProductHelp.productHelp());
+      //      } else if (cmdBySpaceAndComma[0].equals("product")
+      //          && cmdBySpaceAndComma[1].equals("delete")) {
+      //        System.out.println(productService.productDelete(cmdBySpaceAndComma[2]));
+      //      } else if (cmdBySpaceAndComma[0].equals("unit") &&
+      // cmdBySpaceAndComma[1].equals("create")) {
+      //        try {
+      //          System.out.println(
+      //              UnitValidator.unitCreateValidator(
+      //                  cmdBySpaceAndComma[1],
+      //                  cmdBySpaceAndComma[2],
+      //                  cmdBySpaceAndComma[3],
+      //                  cmdBySpaceAndComma[4],
+      //                  cmdBySpaceAndComma[5]));
+      //        } catch (Exception e) {
+      //          System.out.println(UnitCreate.unitCreateByEnter());
+      //        }
+      //      } else if (cmdBySpaceAndComma[0].equals("unit") &&
+      // cmdBySpaceAndComma[1].equals("delete")) {
+      //        System.out.println(unitService.unitDelete(cmdBySpaceAndComma[2]));
+      //      } else if (cmdBySpaceAndComma[0].equals("unit") &&
+      // cmdBySpaceAndComma[1].equals("help")) {
+      //        System.out.println(UnitHelp.unitHelp());
+      //      } else if (cmdBySpaceAndComma[0].equals("unit") &&
+      // cmdBySpaceAndComma[1].equals("list")) {
+      //        ResultSet rs = unitService.unitList();
+      //        while (rs.next()) {
+      //          System.out.println(
+      //              String.format("%20s", rs.getString("unit_code"))
+      //                  + String.format("%20s", rs.getString("unit_name"))
+      //                  + String.format("%40s", rs.getString("description"))
+      //                  + String.format("%20s", rs.getString("is_dividable")));
+      //        }
+      //      } else if (cmdBySpaceAndComma[0].equals("unit") &&
+      // cmdBySpaceAndComma[1].equals("edit")) {
+      //        try {
+      //          System.out.println(
+      //              UnitValidator.unitCreateValidator(
+      //                  cmdBySpaceAndComma[1],
+      //                  cmdBySpaceAndComma[2],
+      //                  cmdBySpaceAndComma[3],
+      //                  cmdBySpaceAndComma[4],
+      //                  cmdBySpaceAndComma[5]));
+      //        } catch (Exception e) {
+      //          System.out.println(UnitEdit.unitEditByEnter());
+      //        }
+      //      } else if(cmdBySpaceAndComma[0].equals("product") &&
+      // cmdBySpaceAndComma[1].equals("edit")){
+      //          try {
+      //              System.out.println(
+      //                      ProductValidator.productCreateValidator(
+      //                              cmdBySpaceAndComma[2],
+      //                              cmdBySpaceAndComma[3],
+      //                              cmdBySpaceAndComma[4],
+      //                              cmdBySpaceAndComma[5],
+      //                              cmdBySpaceAndComma[6],
+      //                              cmdBySpaceAndComma[7]));
+      //          } catch (Exception e) {
+      //              System.out.println(ProductEditByEnter.productEditByEnter());
+      //          }
+      //      } else if(cmdBySpaceAndComma[0].equals("user")){
+      //        if(cmdBySpaceAndComma[1].equals("help")){
+      //          UserHelp.userHelp();
+      //        }
+      //      }

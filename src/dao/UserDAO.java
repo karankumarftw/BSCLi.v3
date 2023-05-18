@@ -19,7 +19,7 @@ public class UserDAO implements Delete {
     public String createUser(User user) throws SQLException {
         PreparedStatement ps =
                 DBConnection.connection.prepareStatement(
-                        "insert into users (user_type,user_name,password,first_name,last_name,phone_number) values (?,?,?,?,?,?)");
+                        "insert into users (user_type,user_name,user_password,user_firstname,user_lastname,user_phonenumber) values (?,?,?,?,?,?)");
         ps.setString(1, user.getUserType());
         ps.setString(2, user.getUserName());
         ps.setString(3, user.getPassword());
@@ -54,10 +54,10 @@ public class UserDAO implements Delete {
             int id = rs.getInt("id");
             String userType = rs.getString("user_type");
             String userName = rs.getString("user_name");
-            String firstName = rs.getString("first_name");
-            String password = rs.getString("password");
-            String lastName = rs.getString("last_name");
-            long phoneNumber = rs.getLong("phone_number");
+            String firstName = rs.getString("user_firstname");
+            String password = rs.getString("user_password");
+            String lastName = rs.getString("user_lastname");
+            long phoneNumber = rs.getLong("user_phonenumber");
             User user = new User(id,userType,userName,password,firstName,lastName,phoneNumber);
             listOfUsers.add(user);
         }

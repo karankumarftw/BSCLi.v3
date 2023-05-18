@@ -6,9 +6,10 @@ import service.ProductService;
 import service.UserService;
 
 public class InputHandler {
-    ProductService productService = new ProductService();
-    UserService userService = new UserService();
-    public void input() throws NotANumberException, SQLException {
-        System.out.println(userService.userList());
-    }
+	ProductService productService = new ProductService();
+	UserService userService = new UserService();
+	UserValidator userValidator = new UserValidator();
+	public void input() throws NotANumberException, SQLException {
+
+	}
 }
