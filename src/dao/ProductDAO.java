@@ -47,10 +47,10 @@ public class ProductDAO implements ProductCreate, Delete {
 		ResultSet rs = DBConnection.statement.executeQuery(query);
 		while (rs.next()) {
 			int code = rs.getInt("code");
-			String name = rs.getString("name");
-			String unit = rs.getString("unit");
-			String type = rs.getString("type");
-			double price = rs.getDouble("price");
+			String name = rs.getString("product_name");
+			String unit = rs.getString("unit_code");
+			String type = rs.getString("product_type");
+			double price = rs.getDouble("product_price");
 			double stock = rs.getDouble("stock");
 			Product product = new Product(code, name, unit, type, price, stock);
 			listOfProducts.add(product);
