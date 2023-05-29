@@ -88,4 +88,13 @@ public class ProductDAO implements ProductCreate, Delete {
 				"select * from products order by code asc offset " + offset + "  limit " + pageLimit;
 		return results(query);
 	}
+
+	public double getItemPrice(int code) throws SQLException {
+		ResultSet rs = DBConnection.statement.executeQuery("select product_price from products where code = "+code);
+		double itemPrice = 0;
+		while (rs.next()){
+			itemPrice = rs.getInt("product_price");
+		}
+		return itemPrice;
+	}
 }

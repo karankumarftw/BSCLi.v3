@@ -49,4 +49,9 @@ public class ProductService {
       throw new NotANumberException("Page Count and Page number should be numbers");
     }
   }
+
+  public double getItemPrice(int code) throws SQLException {
+
+    return productDAO.getItemPrice(code);
+  }
 }
