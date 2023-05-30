@@ -1,23 +1,23 @@
 package entity;
 
 public class Purchase {
-  private int id;
+  private Integer id;
   private String date;
-  private int invoice;
-  private double grandTotal;
+  private Integer invoice;
+  private Double grandTotal;
 
-  public Purchase(int id, String date, int invoice, double grandTotal) {
+  public Purchase(Integer id, String date, Integer invoice, Double grandTotal) {
     this.setId(id);
     this.setDate(date);
     this.setInvoice(invoice);
     this.setGrandTotal(grandTotal);
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -29,19 +29,19 @@ public class Purchase {
     this.date = date;
   }
 
-  public int getInvoice() {
+  public Integer getInvoice() {
     return invoice;
   }
 
-  public void setInvoice(int invoice) {
+  public void setInvoice(Integer invoice) {
     this.invoice = invoice;
   }
 
-  public double getGrandTotal() {
+  public Double getGrandTotal() {
     return grandTotal;
   }
 
-  public void setGrandTotal(double grandTotal) {
+  public void setGrandTotal(Double grandTotal) {
     this.grandTotal = grandTotal;
   }
 }

@@ -1,47 +1,47 @@
 package entity;
 
 public class SalesItem {
-	private int invoice;
-	private int code;
-	private double quantity;
-	private double itemPrice;
+  private Integer invoice;
+  private Integer code;
+  private Double quantity;
+  private Double itemPrice;
 
-	public SalesItem(int invoice, int code, double quantity,double itemPrice) {
-		this.setInvoice(invoice);
-		this.setCode(code);
-		this.setQuantity(quantity);
-		this.setItemPrice(itemPrice);
-	}
+  public SalesItem(Integer invoice, Integer code, Double quantity, Double itemPrice) {
+    this.setInvoice(invoice);
+    this.setCode(code);
+    this.setQuantity(quantity);
+    this.setItemPrice(itemPrice);
+  }
 
-	public int getInvoice() {
-		return invoice;
-	}
+  public Integer getInvoice() {
+    return invoice;
+  }
 
-	public void setInvoice(int invoice) {
-		this.invoice = invoice;
-	}
+  public void setInvoice(Integer invoice) {
+    this.invoice = invoice;
+  }
 
-	public int getCode() {
-		return code;
-	}
+  public Integer getCode() {
+    return code;
+  }
 
-	public void setCode(int code) {
-		this.code = code;
-	}
+  public void setCode(Integer code) {
+    this.code = code;
+  }
 
-	public double getQuantity() {
-		return quantity;
-	}
+  public Double getQuantity() {
+    return quantity;
+  }
 
-	public void setQuantity(double quantity) {
-		this.quantity = quantity;
-	}
+  public void setQuantity(Double quantity) {
+    this.quantity = quantity;
+  }
 
-	public double getItemPrice(){
-		return itemPrice;
-	}
+  public Double getItemPrice() {
+    return itemPrice;
+  }
 
-	public void setItemPrice(double itemPrice){
-		this.itemPrice = itemPrice;
-	}
+  public void setItemPrice(Double itemPrice) {
+    this.itemPrice = itemPrice;
+  }
 }

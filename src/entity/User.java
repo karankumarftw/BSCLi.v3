@@ -1,77 +1,84 @@
 package entity;
 
 public class User {
-	private int userID;
-	private String userType;
-	private String userName;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private long userPhoneNumber;
+  private Integer userID;
+  private String userType;
+  private String userName;
+  private String password;
+  private String firstName;
+  private String lastName;
+  private Long userPhoneNumber;
 
-	public User(int userId,String userType, String userName, String password, String firstName, String lastName, long userPhoneNumber){
-		setUserID(userId);
-		setUserType(userType);
-		setUserName(userName);
-		setPassword(password);
-		setFirstName(firstName);
-		setLastName(lastName);
-		setUserPhoneNumber(userPhoneNumber);
-	}
+  public User(
+      Integer userId,
+      String userType,
+      String userName,
+      String password,
+      String firstName,
+      String lastName,
+      Long userPhoneNumber) {
+    setUserID(userId);
+    setUserType(userType);
+    setUserName(userName);
+    setPassword(password);
+    setFirstName(firstName);
+    setLastName(lastName);
+    setUserPhoneNumber(userPhoneNumber);
+  }
 
-	public int getUserID() {
-		return userID;
-	}
+  public Integer getUserID() {
+    return userID;
+  }
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+  public void setUserID(Integer userID) {
+    this.userID = userID;
+  }
 
-	public String getUserType() {
-		return userType;
-	}
+  public String getUserType() {
+    return userType;
+  }
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
+  public void setUserType(String userType) {
+    this.userType = userType;
+  }
 
-	public String getUserName() {
-		return userName;
-	}
+  public String getUserName() {
+    return userName;
+  }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public String getFirstName() {
-		return firstName;
-	}
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-	public String getLastName() {
-		return lastName;
-	}
+  public String getLastName() {
+    return lastName;
+  }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-	public long getUserPhoneNumber() {
-		return userPhoneNumber;
-	}
+  public Long getUserPhoneNumber() {
+    return userPhoneNumber;
+  }
 
-	public void setUserPhoneNumber(long userPhoneNumber) {
-		this.userPhoneNumber = userPhoneNumber;
-	}
+  public void setUserPhoneNumber(Long userPhoneNumber) {
+    this.userPhoneNumber = userPhoneNumber;
+  }
 }

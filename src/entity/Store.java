@@ -2,11 +2,11 @@ package entity;
 
 public class Store {
 	private String storeName;
-	private long phoneNumber;
+	private Long phoneNumber;
 	private String address;
 	private String gstNumber;
 
-	public Store(String name, long phoneNumber, String address, String gstNumber) {
+	public Store(String name, Long phoneNumber, String address, String gstNumber) {
 		setStoreName(name);
 		setPhoneNumber(phoneNumber);
 		setAddress(address);
@@ -21,11 +21,11 @@ public class Store {
 		this.storeName = storeName;
 	}
 
-	public long getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

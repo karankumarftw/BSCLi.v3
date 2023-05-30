@@ -1,10 +1,7 @@
 package service;
 
-import dao.PurchaseItemDAO;
 import dao.SalesItemDAO;
-import entity.PurchaseItem;
 import entity.SalesItem;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 

@@ -14,4 +14,8 @@ public class StoreService {
   public String editStore(Store store) throws SQLException {
     return storeDAO.editStore(store);
   }
+
+  public String deleteStore() throws SQLException {
+    return storeDAO.deleteStore();
+  }
 }

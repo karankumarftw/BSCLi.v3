@@ -10,7 +10,7 @@ public class StoreDAO {
 	public String createStore(Store store) throws SQLException {
 		try{
 			PreparedStatement ps =
-					DBConnection.connection.prepareStatement("insert into store values (?,?,?,?)");
+					DBConnection.connection.prepareStatement("INSERT INTO STORE VALUES (?,?,?,?)");
 			ps.setString(1, store.getStoreName());
 			ps.setLong(2, store.getPhoneNumber());
 			ps.setString(3, store.getAddress());
@@ -25,7 +25,7 @@ public class StoreDAO {
 
 	public String editStore(Store store) throws SQLException {
 		PreparedStatement ps =
-				DBConnection.connection.prepareStatement("update store set store_phone_number = ?, store_address = ?, store_gst_number = ? where store_name = ?");
+				DBConnection.connection.prepareStatement("UPDATE STORE SET STORE_PHONE_NUMBER = ?, STORE_ADDRESS = ?, STORE_GST_NUMBER = ? WHERE STORE_NAME = ?");
 
 		ps.setLong(1, store.getPhoneNumber());
 		ps.setString(2, store.getAddress());
@@ -33,5 +33,10 @@ public class StoreDAO {
 		ps.setString(4, store.getStoreName());
 		ps.executeUpdate();
 		return "Store edited Successfully";
+	}
+
+	public String deleteStore() throws SQLException {
+		DBConnection.statement.executeQuery("DELETE FROM STORE WHERE STORE_NAME");
+		return "Store deleted successfully";
 	}
 }

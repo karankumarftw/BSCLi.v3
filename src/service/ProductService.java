@@ -5,7 +5,7 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductService {
+public class ProductService implements ProductServiceInterface{
   ProductDAO productDAO = new ProductDAO();
 
   public String productDelete(String code) throws SQLException, NotANumberException {
@@ -24,7 +24,7 @@ public class ProductService {
     return productDAO.productCreate(product);
   }
 
-  public int productCount() throws SQLException {
+  public Integer productCount() throws SQLException {
     return productDAO.count();
   }
 
@@ -50,8 +50,23 @@ public class ProductService {
     }
   }
 
+  public ArrayList<Product> globalSearch(String searchValue) throws SQLException {
+    return productDAO.globalSearch(searchValue);
+  }
+
   public double getItemPrice(int code) throws SQLException {
 
     return productDAO.getItemPrice(code);
+  }
+
+  public ArrayList<Product> searchWithAttribute(String attr, String searchValue)
+      throws SQLException {
+
+    return productDAO.searchWithAttribute(attr, searchValue);
+  }
+
+  public ArrayList<Product> searchWithAttributeWithPaging(
+      String attr, String searchValue, int pageLimit, int pageCount) throws SQLException {
+    return productDAO.searchWithAttributeWithPaging(attr, searchValue, pageLimit, pageCount);
   }
 }

@@ -11,7 +11,7 @@ public class PurchaseDAO {
     try {
       PreparedStatement ps =
           DBConnection.connection.prepareStatement(
-              "insert into purchase(date,invoice,grand_total) values (?,?,?)");
+              "INSERT INTO PURCHASE(DATE,INVOICE,GRAND_TOTAL) VALUES (?,?,?)");
       ps.setString(1, purchase.getDate());
       ps.setInt(2, purchase.getInvoice());
       ps.setDouble(3, purchase.getGrandTotal());
@@ -23,11 +23,27 @@ public class PurchaseDAO {
   }
 
   public int purchaseCount() throws SQLException {
-    ResultSet rs = DBConnection.statement.executeQuery("select count(*) from purchase");
+    ResultSet rs = DBConnection.statement.executeQuery("SELECT COUNT(*) FROM PURCHASE");
     int count = 0;
-    if(rs.next()){
+    if (rs.next()) {
       count = rs.getInt("count");
     }
     return count;
+  }
+
+  public int purchaseCountOnDate(String date) throws SQLException {
+    ResultSet rs =
+        DBConnection.statement.executeQuery(
+            "SELECT COUNT(*) FROM PURCHASE where date = '" + date + "'");
+    int count = 0;
+    if (rs.next()) {
+      count = rs.getInt("count");
+    }
+    return count;
+  }
+
+  public String purchaseDelete(int invoice) throws SQLException {
+    DBConnection.statement.execute("delete from purchase where invoice = " + invoice);
+    return "Purchase deleted successfully";
   }
 }

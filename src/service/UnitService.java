@@ -24,4 +24,5 @@ public class UnitService {
 	public ArrayList<Unit> unitList() throws SQLException {
 		return unitDAO.list();
 	}
+
 }

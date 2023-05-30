@@ -18,4 +18,8 @@ public class PurchaseItemDAO {
     ps.executeUpdate();
     return "Purchased Item inserted successfully. CODE : " + purchaseItem.getCode();
   }
+
+  public void deletePurchaseItem(int invoice) throws SQLException {
+    DBConnection.statement.execute("delete from purchase_items where invoice = " + invoice);
+  }
 }

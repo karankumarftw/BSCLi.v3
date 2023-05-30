@@ -1,6 +1,16 @@
 package cliController;
 
+import cliController.productController.ProductCLI;
+import cliController.purchaseController.PurchaseCLI;
+import cliController.salesController.SalesCLI;
+import cliController.storeController.StoreCLI;
+import cliController.storeController.StoreValidator;
+import cliController.unitController.UnitCLI;
+import cliController.userController.UserCLI;
+import cliController.userController.UserValidator;
 import java.sql.SQLException;
+import java.util.Scanner;
+import org.apache.commons.lang3.StringUtils;
 import service.*;
 
 public class InputHandler {
@@ -13,31 +23,38 @@ public class InputHandler {
   SalesCLI salesCLI = new SalesCLI();
   StoreCLI storeCLI = new StoreCLI();
   StoreValidator storeValidator = new StoreValidator();
+  ProductCLI productCLI = new ProductCLI();
+  UserCLI userCLI = new UserCLI();
+  UnitCLI unitCLI = new UnitCLI();
+  AuthenticationService authenticationService = new AuthenticationService();
+  Scanner scanner = new Scanner(System.in);
 
-  public void input() throws NotANumberException, SQLException {
-    //		try {
-    //      			System.out.println(
-    //      					purchaseCLI.purchaseCreate(
-    //      							"purchase 12-03-2023, 898374238, [11, 2, 23],[12, 2, 20],[13, 1, 50],[11, 2,
-    // 23],[12, 2, 20][12, 2, 20],[13, 1, 50]"));
-    //      //System.out.println(purchaseCLI.purchaseCount());
-    //
-    //		} catch (Exception exception) {
-    //			System.err.print(exception.getMessage());
-    //		}
-    //    for(Product product: productService.productList()){
-    //      System.out.println(product.getName());
-    //	}
+  public void authentication() throws SQLException, NotANumberException {
+    while (true) {
+      System.out.print("\nEnter user name : ");
+      String userName = scanner.nextLine();
+      System.out.print("Enter password : ");
+      String password = scanner.nextLine();
 
-    // System.out.println(salesCLI.salesCreate("sales 29-05-2023, 879872329, [1,12],[2,20]"));
+      String userType = authenticationService.authenticate(userName, password);
+      if (!StringUtils.isEmpty(userType)) {
+        AccessControl.userType = userType;
+        System.out.println("\nLOGIN SUCCESSFUL");
+        input();
+      } else {
+        System.out.println("Incorrect username or password . . .");
+      }
+    }
+  }
 
-    // storeCLI.input("store create vels, 798798799, udumalpet, 12710272");
-    try {
-      System.out.println(
-          storeCLI.createStore(
-              "store create kkk, 9876543210, udumalpet, 127102721212138"));
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+  public void input() throws SQLException {
+    while (true) {
+      System.out.print("> ");
+      String command = scanner.nextLine();
+      String[] moduleName = command.split(" ");
+      switch (moduleName[0]) {
+        case "product" -> productCLI.input(command);
+      }
     }
   }
 }

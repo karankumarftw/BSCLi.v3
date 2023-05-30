@@ -1,5 +1,6 @@
 package service;
 
+import connection.DBConnection;
 import dao.PurchaseDAO;
 import entity.Purchase;
 import java.sql.SQLException;
@@ -20,5 +21,13 @@ public class PurchaseService {
   public int purchaseCount() throws SQLException {
 
     return purchaseDAO.purchaseCount();
+  }
+
+  public int purchaseOnDate(String date) throws SQLException{
+    return purchaseDAO.purchaseCountOnDate(date);
+  }
+
+  public String purchaseDelete(int invoice) throws SQLException {
+    return purchaseDAO.purchaseDelete(invoice);
   }
 }

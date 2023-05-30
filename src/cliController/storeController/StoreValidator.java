@@ -1,9 +1,8 @@
-package cliController;
+package cliController.storeController;
 
 import entity.Store;
 import java.sql.SQLException;
 import org.apache.commons.lang3.StringUtils;
-import service.StoreService;
 
 public class StoreValidator {
   public Store storeValidator(String command) throws SQLException, StoreNotValidException {
@@ -37,10 +36,8 @@ public class StoreValidator {
     } catch (Exception e) {
       throw new StoreNotValidException("Phone number should be a number not any other characters");
     }
-    Store store = new Store(name, storePhoneNumber, address, gstNumber);
-
-
-
-    return store;
+    
+    
+    return new Store(name, storePhoneNumber, address, gstNumber);
   }
 }
