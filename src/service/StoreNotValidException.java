@@ -1,4 +1,4 @@
-package cliController.storeController;
+package service;
 
 public class StoreNotValidException extends Exception{
 	public StoreNotValidException(String error){

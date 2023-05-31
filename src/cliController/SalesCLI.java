@@ -1,4 +1,4 @@
-package cliController.salesController;
+package cliController;
 
 import connection.DBConnection;
 import entity.Sales;

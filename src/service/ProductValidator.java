@@ -1,16 +1,21 @@
-package cliController.productController;
+package service;
 
 import dao.UnitDAO;
 import entity.Product;
 import java.sql.SQLException;
-import service.NotANumberException;
 
 public class ProductValidator {
   UnitDAO unitDAO = new UnitDAO();
-
-  public Product productValidator(
-      String code, String name, String unit, String type, String price, String stock)
+  // String code, String name, String unit, String type, String price, String stock
+  public Boolean productValidator(Product product)
       throws SQLException, ProductNotValidException, NotANumberException {
+
+    String code = String.valueOf(product.getCode());
+    String name = product.getName();
+    String unit = product.getUnitCode();
+    String type = product.getType();
+    String price = String.valueOf(product.getPrice());
+    String stock = String.valueOf(product.getStock());
     if (code.length() < 3 || code.length() > 6) {
       throw new ProductNotValidException("Product code length should be 2 to 6 characters");
     }
@@ -52,7 +57,7 @@ public class ProductValidator {
       throw new NotANumberException("The product stock should be numeric");
     }
 
-    return new Product(productCode, name, unit, type, productPrice, productStock);
+    return true;
   }
 
   enum productType {

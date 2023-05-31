@@ -1,16 +1,14 @@
-package cliController.storeController;
+package service;
 
 import entity.Store;
 import java.sql.SQLException;
-import org.apache.commons.lang3.StringUtils;
 
 public class StoreValidator {
-  public Store storeValidator(String command) throws SQLException, StoreNotValidException {
-    String[] splitByComma = StringUtils.split(command, "[ ,]");
-    String name = splitByComma[2];
-    String phoneNumber = splitByComma[3];
-    String address = splitByComma[4];
-    String gstNumber = splitByComma[5];
+  public void storeValidator(Store store) throws StoreNotValidException {
+
+    String name = store.getStoreName();
+    String phoneNumber = String.valueOf(store.getPhoneNumber());
+    String gstNumber = store.getGstNumber();
 
     if (name.length() < 3 || name.length() > 30) {
       throw new StoreNotValidException("Product name length should be 3 to 30 characters");
@@ -36,8 +34,5 @@ public class StoreValidator {
     } catch (Exception e) {
       throw new StoreNotValidException("Phone number should be a number not any other characters");
     }
-    
-    
-    return new Store(name, storePhoneNumber, address, gstNumber);
   }
 }

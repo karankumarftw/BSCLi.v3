@@ -140,4 +140,20 @@ public class ProductDAO implements ProductCreate, Delete {
     }
     return itemPrice;
   }
+
+  public String productPriceUpdate(int code, double price) throws SQLException {
+    PreparedStatement ps =
+        DBConnection.connection.prepareStatement(" update products set price = ? where code = ?");
+    ps.setDouble(1, price);
+    ps.setInt(2, code);
+    return "Price updated successfully";
+  }
+
+  public String productStockUpdate(int code, double stock) throws SQLException {
+    PreparedStatement ps =
+        DBConnection.connection.prepareStatement(" update products set stock = ? where code = ?");
+    ps.setDouble(1, stock);
+    ps.setInt(2, code);
+    return "Stock updated successfully";
+  }
 }

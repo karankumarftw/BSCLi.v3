@@ -5,17 +5,29 @@ import entity.Store;
 import java.sql.SQLException;
 
 public class StoreService {
-  private StoreDAO storeDAO = new StoreDAO();
+    private StoreDAO storeDAO = new StoreDAO();
+    private StoreValidator storeValidator = new StoreValidator();
 
-  public String createStore(Store store) throws SQLException {
-    return storeDAO.createStore(store);
-  }
+    public String createStore(Store store) throws Exception {
 
-  public String editStore(Store store) throws SQLException {
-    return storeDAO.editStore(store);
-  }
+        try {
+            storeValidator.storeValidator(store);
+            return storeDAO.createStore(store);
+        } catch (Exception e) {
+            throw new StoreNotValidException(e.getMessage());
+        }
+    }
 
-  public String deleteStore() throws SQLException {
-    return storeDAO.deleteStore();
-  }
+    public String editStore(Store store) throws SQLException, StoreNotValidException {
+        try {
+            storeValidator.storeValidator(store);
+            return storeDAO.editStore(store);
+        } catch (Exception e) {
+            throw new StoreNotValidException(e.getMessage());
+        }
+    }
+
+    public String deleteStore() throws SQLException {
+        return storeDAO.deleteStore();
+    }
 }

@@ -1,14 +1,10 @@
 import cliController.InputHandler;
-import service.NotANumberException;
-
 import java.sql.SQLException;
+import service.ProductNotValidException;
 
 public class Main {
-	public static void main(String[] args) throws SQLException, NotANumberException {
-		InputHandler inputHandler = new InputHandler();
-		inputHandler.authentication();
-		//Home.home();
-	}
-
-
+  public static void main(String[] args) throws SQLException, ProductNotValidException {
+    InputHandler inputHandler = new InputHandler();
+    inputHandler.authentication();
+  }
 }

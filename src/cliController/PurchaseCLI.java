@@ -1,4 +1,4 @@
-package cliController.purchaseController;
+package cliController;
 
 import entity.Purchase;
 import entity.PurchaseItem;

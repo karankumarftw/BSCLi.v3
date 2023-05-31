@@ -1,26 +1,27 @@
-package cliController.productController;
+package cliController;
 
 import entity.Product;
-import org.apache.commons.lang3.StringUtils;
-import service.ProductService;
-
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import service.ProductNotValidException;
+import service.ProductService;
+import service.ProductValidator;
 
 public class ProductCLI {
   private ProductValidator productValidator = new ProductValidator();
   private ProductService productService = new ProductService();
 
-  public void input(String command) throws SQLException {
+  public void input(String command) throws SQLException, ProductNotValidException {
     String[] commandSplitted = command.split("[ ,]");
 
     int elementCount = 0;
-    for(String element : commandSplitted){
-      elementCount+=1;
+    for (String element : commandSplitted) {
+      elementCount += 1;
     }
 
-    if(elementCount<3){
-      switch (commandSplitted[1]){
+    if (elementCount < 3) {
+      switch (commandSplitted[1]) {
         case "create" -> System.out.println(productCreateByEnter());
         case "edit" -> productEditByEnter();
       }
@@ -35,15 +36,23 @@ public class ProductCLI {
       }
     }
 
-
+    if (commandSplitted[2].equals("delete")) {
+      switch ((commandSplitted[1])) {
+        case "create" -> productCreateHelp();
+        case "list" -> productListHelp();
+        case "edit" -> productEditHelp();
+        case "delete" -> productDeleteHelp();
+      }
+    }
   }
 
-  String productCreateByEnter() throws SQLException {
+  String productCreateByEnter() throws SQLException, ProductNotValidException {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Product create");
     System.out.print("> ");
     String[] productCreateInput = scanner.nextLine().split("[, ]");
-    Product product = new Product(
+    Product product =
+        new Product(
             Integer.parseInt(productCreateInput[0]),
             productCreateInput[1],
             productCreateInput[2],
@@ -54,11 +63,12 @@ public class ProductCLI {
     return productService.productCreate(product);
   }
 
-  String productEditByEnter() throws SQLException {
+  String productEditByEnter() throws SQLException, ProductNotValidException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("> ");
     String[] productCreateInput = scanner.nextLine().split("[, ]");
-    Product product = new Product(
+    Product product =
+        new Product(
             Integer.parseInt(productCreateInput[0]),
             productCreateInput[1],
             productCreateInput[2],
@@ -143,5 +153,28 @@ public class ProductCLI {
             + "\t \n"
             + "\n"
             + "> product delete <id>");
+  }
+
+  void priceUpdateHelp() {
+    System.out.println(
+        "Update sales price per unit using the following template\n"
+            + "\t\tcode, price\n"
+            + "\t\t\n"
+            + "\t\tcode - text, mandatory\n"
+            + "\t\tprice - number, mandatory\n"
+            + "\t\t\n"
+            + "> price update <code> <price>\t");
+  }
+
+  void stockUpdateHelp() {
+    System.out.println(
+        "stock update help\n"
+            + ">> update stock using following template\n"
+            + "\t\tcode, quantity\n"
+            + "\t\t\n"
+            + "\t\tcode - text, mandatory\n"
+            + "\t\tquantity - number, mandatory\n"
+            + "\n"
+            + "> stock update <code> <quantity>");
   }
 }

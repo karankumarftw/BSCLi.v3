@@ -1,8 +1,11 @@
-package cliController.storeController;
+package cliController;
 
 import entity.Store;
 import java.sql.SQLException;
+
+import org.apache.commons.lang3.StringUtils;
 import service.StoreService;
+import service.StoreValidator;
 
 public class StoreCLI {
     StoreService storeService = new StoreService();
@@ -15,22 +18,27 @@ public class StoreCLI {
 
     String createStore(String command) throws Exception {
 
-        Store store;
-        try {
-            store = storeValidator.storeValidator(command);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+        String[] splitByComma = StringUtils.split(command, "[ ,]");
+        String name = splitByComma[2];
+        String phoneNumber = splitByComma[3];
+        String address = splitByComma[4];
+        String gstNumber = splitByComma[5];
+
+        Store store = new Store(name,Long.parseLong(phoneNumber),address,gstNumber);
+
         return storeService.createStore(store);
     }
 
     String editStore(String command) throws Exception {
-        Store store;
-        try {
-            store = storeValidator.storeValidator(command);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+
+        String[] splitByComma = StringUtils.split(command, "[ ,]");
+        String name = splitByComma[2];
+        String phoneNumber = splitByComma[3];
+        String address = splitByComma[4];
+        String gstNumber = splitByComma[5];
+
+        Store store = new Store(name,Long.parseLong(phoneNumber),address,gstNumber);
+
         return storeService.editStore(store);
     }
 

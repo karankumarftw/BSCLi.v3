@@ -9,9 +9,8 @@ import java.util.ArrayList;
 
 public class UserDAO implements Delete {
 
-  @Override
-  public String delete(String data) throws SQLException {
-    String query = "DELETE FROM USERS WHERE ID = " + data;
+  public String delete(String userName) throws SQLException {
+    String query = "DELETE FROM USERS WHERE USER_NAME = " + userName;
     DBConnection.statement.execute(query);
     return "User deleted successfully";
   }

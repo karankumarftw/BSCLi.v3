@@ -1,17 +1,11 @@
 package cliController;
 
-import cliController.productController.ProductCLI;
-import cliController.purchaseController.PurchaseCLI;
-import cliController.salesController.SalesCLI;
-import cliController.storeController.StoreCLI;
-import cliController.storeController.StoreValidator;
-import cliController.unitController.UnitCLI;
-import cliController.userController.UserCLI;
-import cliController.userController.UserValidator;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
 import service.*;
+import service.StoreValidator;
+import service.UserValidator;
 
 public class InputHandler {
   ProductService productService = new ProductService();
@@ -29,7 +23,7 @@ public class InputHandler {
   AuthenticationService authenticationService = new AuthenticationService();
   Scanner scanner = new Scanner(System.in);
 
-  public void authentication() throws SQLException, NotANumberException {
+  public void authentication() throws SQLException, ProductNotValidException {
     while (true) {
       System.out.print("\nEnter user name : ");
       String userName = scanner.nextLine();
@@ -47,14 +41,40 @@ public class InputHandler {
     }
   }
 
-  public void input() throws SQLException {
+  public void input() throws SQLException, ProductNotValidException {
     while (true) {
       System.out.print("> ");
       String command = scanner.nextLine();
       String[] moduleName = command.split(" ");
-      switch (moduleName[0]) {
-        case "product" -> productCLI.input(command);
+      if (AccessControl.userType.equals("sales")) {
+        if (!moduleName[0].equals("sales")) {
+          System.out.println("You are only allowed to do sales operations !!!");
+        }
+      } else if (AccessControl.userType.equals("purchase")) {
+        if (!moduleName[0].equals("purchase")) {
+          System.out.println("You are only allowed to do purchase operations !!!");
+        }
+
+      } else if (AccessControl.userType.equals("admin")) {
+        if (moduleName[0].equals("purchase") || moduleName[0].equals("sales")) {
+          System.out.println(
+              "You are allowed to do Store, unit, stock, price, product, user operations");
+        }
+        else{
+          adminAccess(command);
+        }
       }
     }
+  }
+
+  public void adminAccess(String command) throws SQLException {
+      userCLI.userCreate(command);
+  }
+  public void sales(){
+
+  }
+
+  public void purchase(){
+
   }
 }

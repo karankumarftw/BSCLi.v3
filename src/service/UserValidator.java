@@ -1,17 +1,18 @@
-package cliController.userController;
+package service;
 
-import cliController.unitController.UnitNotValidException;
 import entity.User;
 
 public class UserValidator {
-  public User userValidator(
-      String userType,
-      String userName,
-      String userPassword,
-      String userFirstName,
-      String userLastName,
-      String userPhoneNumber)
+  public void userValidator(
+      User user)
       throws Exception {
+
+      String userType = user.getUserType();
+      String userName = user.getUserName();
+      String userPassword = user.getPassword();
+      String userFirstName = user.getFirstName();
+      String userLastName = user.getLastName();
+      String userPhoneNumber = String.valueOf(user.getUserPhoneNumber());
     if (!userType.equals("sales") && !userType.equals("purchase")) {
       throw new UserNotValidException("User Type either should be sales or purchase");
     }
@@ -48,13 +49,5 @@ public class UserValidator {
       throw new UnitNotValidException("Phone number of the user should ");
     }
 
-    return new User(
-        1,
-        userType,
-        userName,
-        userPassword,
-        userFirstName,
-        userLastName,
-        phoneNumber);
   }
 }

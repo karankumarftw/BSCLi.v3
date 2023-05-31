@@ -10,13 +10,19 @@ import java.util.ArrayList;
 
 public class UserService {
     UserDAO userDAO = new UserDAO();
+    UserValidator userValidator = new UserValidator();
 
-    public String userDelete(int userID) throws SQLException {
-        return userDAO.delete(String.valueOf(userID));
+    public String userDelete(String userName) throws SQLException {
+        return userDAO.delete(userName);
     }
 
     public String userCreate(User user) throws SQLException {
-        return userDAO.createUser(user);
+        try{
+            userValidator.userValidator(user);
+            return userDAO.createUser(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String userEdit(User user) throws SQLException {

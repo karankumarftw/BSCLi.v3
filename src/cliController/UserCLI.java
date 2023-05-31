@@ -1,47 +1,71 @@
-package cliController.userController;
+package cliController;
 
 import entity.User;
+import java.sql.SQLException;
 import java.util.Scanner;
 import service.UserService;
 
 public class UserCLI {
   UserService userService = new UserService();
-  private UserValidator userValidator = new UserValidator();
-  private String[] command;
+
   private Scanner scanner = new Scanner(System.in);
 
   String userCreateByEnter() throws Exception {
     System.out.print("> ");
-    command = scanner.nextLine().split("[ ,]");
-    User user = null;
-    try {
-      user =
-          userValidator.userValidator(
-              command[0], command[1], command[2], command[3], command[4], command[5]);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    String[] command = scanner.nextLine().split("[ ,]");
+    User user =
+        new User(
+            1,
+            command[0],
+            command[1],
+            command[2],
+            command[3],
+            command[4],
+            Long.parseLong(command[5]));
 
     return userService.userCreate(user);
   }
 
+  String userCreate(String commandString) throws SQLException {
+
+    String[] command = commandString.split("[ ,]");
+
+    try{
+      User user =
+              new User(
+                      1,
+                      command[2],
+                      command[3],
+                      command[4],
+                      command[5],
+                      command[6],
+                      Long.parseLong(command[7]));
+
+      return userService.userCreate(user);
+
+    } catch (Exception e) {
+      throw new NumberFormatException(e.getMessage());
+    }
+  }
+
   String userEditByEnter() throws Exception {
     System.out.print("> ");
-    command = scanner.nextLine().split("[ ,]");
-    User user = null;
-    try {
-      user =
-          userValidator.userValidator(
-              command[0], command[1], command[2], command[3], command[4], command[5]);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    String[] command = scanner.nextLine().split("[ ,]");
+    User user =
+        new User(
+            1,
+            command[0],
+            command[1],
+            command[2],
+            command[3],
+            command[4],
+            Long.parseLong(command[5]));
 
     return userService.userEdit(user);
   }
-  
-  void userList(){
-  
+
+  void userList() throws SQLException {
+    userService.userList();
   }
 
   void userCreateHelp() {

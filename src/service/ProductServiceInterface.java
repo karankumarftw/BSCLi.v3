@@ -9,11 +9,11 @@ public interface ProductServiceInterface {
 
   public ArrayList<Product> productList() throws SQLException;
 
-  public String productCreate(Product product) throws SQLException ;
+  public String productCreate(Product product) throws SQLException, NotANumberException, ProductNotValidException;
 
   public Integer productCount() throws SQLException;
 
-  public String productEdit(Product product) throws SQLException;
+  public String productEdit(Product product) throws SQLException, ProductNotValidException;
 
   public ArrayList<Product> productListWithPageLimit(String pageLimit) throws NotANumberException;
 

@@ -5,8 +5,9 @@ import entity.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductService implements ProductServiceInterface{
+public class ProductService implements ProductServiceInterface {
   ProductDAO productDAO = new ProductDAO();
+  ProductValidator productValidator = new ProductValidator();
 
   public String productDelete(String code) throws SQLException, NotANumberException {
     try {
@@ -20,16 +21,26 @@ public class ProductService implements ProductServiceInterface{
     return productDAO.list();
   }
 
-  public String productCreate(Product product) throws SQLException {
-    return productDAO.productCreate(product);
+  public String productCreate(Product product) throws ProductNotValidException {
+    try {
+      productValidator.productValidator(product);
+      return productDAO.productCreate(product);
+    } catch (Exception e) {
+      throw new ProductNotValidException(e.getMessage());
+    }
   }
 
   public Integer productCount() throws SQLException {
     return productDAO.count();
   }
 
-  public String productEdit(Product product) throws SQLException {
-    return productDAO.productEdit(product);
+  public String productEdit(Product product) throws SQLException, ProductNotValidException {
+    try {
+      productValidator.productValidator(product);
+      return productDAO.productEdit(product);
+    } catch (Exception e) {
+      throw new ProductNotValidException(e.getMessage());
+    }
   }
 
   public ArrayList<Product> productListWithPageLimit(String pageLimit) throws NotANumberException {
@@ -68,5 +79,25 @@ public class ProductService implements ProductServiceInterface{
   public ArrayList<Product> searchWithAttributeWithPaging(
       String attr, String searchValue, int pageLimit, int pageCount) throws SQLException {
     return productDAO.searchWithAttributeWithPaging(attr, searchValue, pageLimit, pageCount);
+  }
+
+  public String productPriceUpdate(String productCode, String newPrice) throws NotANumberException {
+    try {
+      int code = Integer.parseInt(productCode);
+      double price = Double.parseDouble(newPrice);
+      return productDAO.productPriceUpdate(code, price);
+    } catch (Exception e) {
+      throw new NotANumberException("Code and price should be numeric values");
+    }
+  }
+
+  public String productStockUpdate(String productCode, String newStock) throws NotANumberException {
+    try {
+      int code = Integer.parseInt(productCode);
+      double stock = Double.parseDouble(newStock);
+      return productDAO.productStockUpdate(code, stock);
+    } catch (Exception e) {
+      throw new NotANumberException("Code and stock should be numeric values");
+    }
   }
 }
