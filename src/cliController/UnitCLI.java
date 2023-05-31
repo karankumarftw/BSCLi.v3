@@ -5,26 +5,74 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import service.UnitService;
-import service.UnitValidator;
 
 public class UnitCLI {
-  private UnitValidator unitValidator = new UnitValidator();
   private Scanner scanner = new Scanner(System.in);
-  private String[] command;
   private UnitService unitService = new UnitService();
+
+  public void commandSplitter(String command) throws SQLException {
+    String[] commandSplit = command.split("[ ,]");
+    int elementCount = commandSplit.length;
+    if (elementCount > 2 && commandSplit[2].equals("help")) {
+      switch (commandSplit[1]) {
+        case "create" -> unitCreateHelp();
+        case "edit" -> unitEditByEnter();
+        case "delete" -> unitDeleteHelp();
+        case "list" -> unitListHelp();
+      }
+    } else if (commandSplit[1].equals("list")) {
+      unitList();
+    } else if (commandSplit[1].equals("delete")) {
+      delete(commandSplit[2]);
+    } else if (commandSplit[1].equals("create")) {
+      try {
+        Unit unit =
+            new Unit(
+                commandSplit[2],
+                commandSplit[3],
+                commandSplit[4],
+                Boolean.parseBoolean(commandSplit[5]));
+        unitService.unitCreate(unit);
+      } catch (Exception e) {
+        unitCreateByEnter();
+      }
+    } else if (commandSplit[1].equals("edit")) {
+      try {
+        Unit unit =
+            new Unit(
+                commandSplit[2],
+                commandSplit[3],
+                commandSplit[4],
+                Boolean.parseBoolean(commandSplit[5]));
+        unitService.unitEdit(unit);
+      } catch (Exception e) {
+        unitEditByEnter();
+      }
+    }
+  }
 
   String unitCreateByEnter() throws SQLException {
     System.out.print("> ");
-    command = scanner.nextLine().split("[ ,]");
-    Unit unit = new Unit(command[0], command[1], command[2], Boolean.parseBoolean(command[3]));
+    String[] commandSplitted = scanner.nextLine().split("[ ,]");
+    Unit unit =
+        new Unit(
+            commandSplitted[0],
+            commandSplitted[1],
+            commandSplitted[2],
+            Boolean.parseBoolean(commandSplitted[3]));
 
     return unitService.unitCreate(unit);
   }
 
   String unitEditByEnter() throws SQLException {
     System.out.print("> ");
-    command = scanner.nextLine().split("[ ,]");
-    Unit unit = new Unit(command[0], command[1], command[2], Boolean.parseBoolean(command[3]));
+    String[] commandSplit = scanner.nextLine().split("[ ,]");
+    Unit unit =
+        new Unit(
+            commandSplit[0],
+            commandSplit[1],
+            commandSplit[2],
+            Boolean.parseBoolean(commandSplit[3]));
 
     return unitService.unitEdit(unit);
   }
@@ -32,9 +80,10 @@ public class UnitCLI {
   void unitList() {
     try {
       ArrayList<Unit> units = unitService.unitList();
-      System.out.println("Unit :");
+      System.out.println("---------------------");
+      System.out.println("       UNIT CODE     ");
       for (int i = 0; i < units.size(); i++) {
-        System.out.println((i + 1) + " " + units.get(i).getName());
+        System.out.printf("%10s%n", units.get(i).getName());
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());

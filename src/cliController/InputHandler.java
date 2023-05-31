@@ -23,7 +23,7 @@ public class InputHandler {
   AuthenticationService authenticationService = new AuthenticationService();
   Scanner scanner = new Scanner(System.in);
 
-  public void authentication() throws SQLException, ProductNotValidException {
+  public void authentication() throws Exception {
     while (true) {
       System.out.print("\nEnter user name : ");
       String userName = scanner.nextLine();
@@ -41,15 +41,19 @@ public class InputHandler {
     }
   }
 
-  public void input() throws SQLException, ProductNotValidException {
+  public void input() throws Exception {
     while (true) {
       System.out.print("> ");
       String command = scanner.nextLine();
       String[] moduleName = command.split(" ");
+      if (command.equals("switch user")) {
+        authentication();
+      }
       if (AccessControl.userType.equals("sales")) {
         if (!moduleName[0].equals("sales")) {
           System.out.println("You are only allowed to do sales operations !!!");
         }
+        salesAccess(command);
       } else if (AccessControl.userType.equals("purchase")) {
         if (!moduleName[0].equals("purchase")) {
           System.out.println("You are only allowed to do purchase operations !!!");
@@ -59,22 +63,32 @@ public class InputHandler {
         if (moduleName[0].equals("purchase") || moduleName[0].equals("sales")) {
           System.out.println(
               "You are allowed to do Store, unit, stock, price, product, user operations");
-        }
-        else{
-          adminAccess(command);
+        } else {
+          adminAccess(command, moduleName[0]);
         }
       }
     }
   }
 
-  public void adminAccess(String command) throws SQLException {
-      userCLI.userCreate(command);
+  public void adminAccess(String command, String module) throws Exception {
+    switch (module) {
+      case "unit" -> unitCLI.commandSplitter(command);
+      case "user" -> userCLI.commandSplitter(command);
+      case "product" -> productCLI.input(command);
+      case "store" -> storeCLI.input(command);
+    }
   }
-  public void sales(){
 
+  public void salesAccess(String command) throws SQLException {
+    String[] operation = command.split(" ");
+
+    switch (operation[1]){
+      case "create" -> salesCLI.salesCreate(command);
+      case "list" -> salesCLI.salesList();
+    }
   }
 
-  public void purchase(){
+  public void purchaseAccess() {
 
   }
 }

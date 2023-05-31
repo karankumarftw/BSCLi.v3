@@ -10,6 +10,10 @@ public class UserCLI {
 
   private Scanner scanner = new Scanner(System.in);
 
+  public void commandSplitter(String command){
+    String[] commandSplit = command.split("[ ,]");
+  }
+
   String userCreateByEnter() throws Exception {
     System.out.print("> ");
     String[] command = scanner.nextLine().split("[ ,]");

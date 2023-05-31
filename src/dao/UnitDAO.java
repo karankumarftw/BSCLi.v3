@@ -22,8 +22,8 @@ public class UnitDAO implements Delete, UnitCreate {
 	public String unitCreate(Unit unitObj) throws SQLException {
 		PreparedStatement ps =
 				DBConnection.connection.prepareStatement("INSERT INTO UNIT VALUES (?,?,?,?)");
-		ps.setString(1, unitObj.getCode());
-		ps.setString(2, unitObj.getName());
+		ps.setString(1, unitObj.getName());
+		ps.setString(2, unitObj.getCode());
 		ps.setString(3, unitObj.getDescription());
 		ps.setBoolean(4, unitObj.getIsDividable());
 		ps.executeUpdate();
@@ -33,7 +33,7 @@ public class UnitDAO implements Delete, UnitCreate {
 	public String unitEdit(Unit unitObj) throws SQLException {
 		PreparedStatement ps =
 				DBConnection.connection.prepareStatement(
-						"UPDATE UNIT SET UNIT_NAME = ?, DESCRIPTION = ? , IS_DIVIDABLE = ? WHERE UNIT_CODE = ?");
+						"UPDATE UNIT SET UNIT_NAME = ?, UNIT_DESCRIPTION = ? , UNIT_IS_DIVIDABLE = ? WHERE UNIT_CODE = ?");
 		ps.setString(1, unitObj.getName());
 		ps.setString(2, unitObj.getDescription());
 		ps.setBoolean(3, unitObj.getIsDividable());

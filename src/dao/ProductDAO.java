@@ -37,7 +37,7 @@ public class ProductDAO implements ProductCreate, Delete {
   }
 
   public String delete(String data) throws SQLException {
-    String query = "delete from products where code = " + data;
+    String query = "update products set is_deleted = true where code =" + data;
     DBConnection.statement.execute(query);
     return "Product deleted successfully";
   }

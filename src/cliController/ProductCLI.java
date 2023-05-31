@@ -3,7 +3,7 @@ package cliController;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.Scanner;
-
+import service.NotANumberException;
 import service.ProductNotValidException;
 import service.ProductService;
 import service.ProductValidator;
@@ -12,55 +12,56 @@ public class ProductCLI {
   private ProductValidator productValidator = new ProductValidator();
   private ProductService productService = new ProductService();
 
-  public void input(String command) throws SQLException, ProductNotValidException {
-    String[] commandSplitted = command.split("[ ,]");
-
-    int elementCount = 0;
-    for (String element : commandSplitted) {
-      elementCount += 1;
-    }
+  public void input(String command)
+      throws SQLException, ProductNotValidException, NotANumberException {
+    String[] commandSplit = command.split("[ ,]");
+    int elementCount = commandSplit.length;
 
     if (elementCount < 3) {
-      switch (commandSplitted[1]) {
-        case "create" -> System.out.println(productCreateByEnter());
+      switch (commandSplit[1]) {
+        case "create" -> productCreateByEnter();
         case "edit" -> productEditByEnter();
+        case "list" -> productList();
       }
-    }
-
-    if (commandSplitted[2].equals("help")) {
-      switch (commandSplitted[1]) {
+    } else if (commandSplit[2].equals("help")) {
+      switch (commandSplit[1]) {
         case "create" -> productCreateHelp();
         case "list" -> productListHelp();
         case "edit" -> productEditHelp();
         case "delete" -> productDeleteHelp();
       }
+    } else if (commandSplit[1].equals("delete")) {
+      productService.productDelete(commandSplit[2]);
     }
+  }
 
-    if (commandSplitted[2].equals("delete")) {
-      switch ((commandSplitted[1])) {
-        case "create" -> productCreateHelp();
-        case "list" -> productListHelp();
-        case "edit" -> productEditHelp();
-        case "delete" -> productDeleteHelp();
-      }
+
+  void productList() throws SQLException {
+    for (Product product : productService.productList()) {
+      System.out.println(product.getName());
     }
   }
 
   String productCreateByEnter() throws SQLException, ProductNotValidException {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Product create");
-    System.out.print("> ");
-    String[] productCreateInput = scanner.nextLine().split("[, ]");
-    Product product =
-        new Product(
-            Integer.parseInt(productCreateInput[0]),
-            productCreateInput[1],
-            productCreateInput[2],
-            productCreateInput[3],
-            Double.parseDouble(productCreateInput[4]),
-            Double.parseDouble(productCreateInput[5]));
+   try{
+     System.out.print("> ");
+     String[] productCreateInput = scanner.nextLine().split("[, ]");
+     Product product =
+             new Product(
+                     Integer.parseInt(productCreateInput[0]),
+                     productCreateInput[1],
+                     productCreateInput[2],
+                     productCreateInput[3],
+                     Double.parseDouble(productCreateInput[4]),
+                     Double.parseDouble(productCreateInput[5]));
 
-    return productService.productCreate(product);
+     return productService.productCreate(product);
+   }
+   catch(Exception e){
+      System.out.println(e.getMessage());
+   }
+return null;
   }
 
   String productEditByEnter() throws SQLException, ProductNotValidException {
