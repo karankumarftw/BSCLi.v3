@@ -4,8 +4,9 @@ import connection.DBConnection;
 import dao.PurchaseDAO;
 import entity.Purchase;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class PurchaseService {
+public class PurchaseService implements PurchaseServiceInterface {
   private PurchaseDAO purchaseDAO = new PurchaseDAO();
 
   public String newPurchase(Purchase purchase) throws SQLException {
@@ -18,12 +19,16 @@ public class PurchaseService {
     return "Purchase failed";
   }
 
+  public ArrayList<Purchase> purchaseList() throws SQLException {
+    return purchaseDAO.purchaseList();
+  }
+
   public int purchaseCount() throws SQLException {
 
     return purchaseDAO.purchaseCount();
   }
 
-  public int purchaseOnDate(String date) throws SQLException{
+  public int purchaseCountOnDate(String date) throws SQLException{
     return purchaseDAO.purchaseCountOnDate(date);
   }
 

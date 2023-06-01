@@ -4,7 +4,7 @@ import dao.StoreDAO;
 import entity.Store;
 import java.sql.SQLException;
 
-public class StoreService {
+public class StoreService implements StoreServiceInterface{
     private StoreDAO storeDAO = new StoreDAO();
     private StoreValidator storeValidator = new StoreValidator();
 

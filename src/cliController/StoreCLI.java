@@ -1,20 +1,16 @@
 package cliController;
 
 import entity.Store;
-
-import java.security.spec.ECParameterSpec;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
 import service.StoreService;
-import service.StoreValidator;
 
 public class StoreCLI {
   StoreService storeService = new StoreService();
   Scanner scanner = new Scanner(System.in);
-  private StoreValidator storeValidator = new StoreValidator();
 
-  String input(String command) throws Exception {
+  void commandSplitter(String command) throws Exception {
     String[] splitByComma = StringUtils.split(command, "[ ,]");
     int count = splitByComma.length;
     if (count < 3 && splitByComma[1].equals("create")) {
@@ -26,14 +22,12 @@ public class StoreCLI {
         case "create" -> storeCreateHelp();
         case "edit" -> storeEditHelp();
       }
-    }
-    else if (count>3 && splitByComma[1].equals("create")){
+    } else if (count > 3 && splitByComma[1].equals("create")) {
       storeCreate(command);
-    } else if(count>3 && splitByComma[1].equals("edit")){
+    } else if (count > 3 && splitByComma[1].equals("edit")) {
       editStore(command);
     }
 
-    return null;
   }
 
   String storeCreate(String command) throws Exception {

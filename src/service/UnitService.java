@@ -5,7 +5,7 @@ import entity.Unit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UnitService {
+public class UnitService implements UnitServiceInterface {
   UnitDAO unitDAO = new UnitDAO();
   UnitValidator unitValidator = new UnitValidator();
 
@@ -23,7 +23,7 @@ public class UnitService {
   public String unitEdit(Unit unit) throws SQLException {
     try {
       unitValidator.unitValidator(unit);
-    return unitDAO.unitEdit(unit);
+      return unitDAO.unitEdit(unit);
     } catch (UnitNotValidException e) {
       System.out.println(e.getMessage());
     }

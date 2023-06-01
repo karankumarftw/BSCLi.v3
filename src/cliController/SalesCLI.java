@@ -1,11 +1,10 @@
 package cliController;
 
-import connection.DBConnection;
 import entity.Sales;
 import entity.SalesItem;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
 import service.ProductService;
@@ -13,10 +12,48 @@ import service.SalesItemService;
 import service.SalesService;
 
 public class SalesCLI {
-  private SalesItemService salesItemService = new SalesItemService();
-  private SalesService salesService = new SalesService();
-  private Scanner scanner = new Scanner(System.in);
-  private ProductService productService = new ProductService();
+  private final SalesItemService salesItemService = new SalesItemService();
+  private final SalesService salesService = new SalesService();
+  private final Scanner scanner = new Scanner(System.in);
+  private final ProductService productService = new ProductService();
+
+  public void commandSplitter(String command) throws SQLException {
+    String[] commandSplit = command.split("[ ,]");
+    int count = commandSplit.length;
+
+    if (count < 3 && commandSplit[1].equals("count")) {
+      System.out.println(salesCount());
+
+    } else if (commandSplit[0].equals("sales") && commandSplit[1].equals("list")) {
+      salesList();
+    } else if (commandSplit[1].equals("count")) {
+      System.out.println(salesCountOnDate(commandSplit[3]));
+    } else if (commandSplit[1].equals("help")) {
+      salesHelp();
+    } else if (commandSplit[2].equals("help")) {
+      switch (commandSplit[1]) {
+        case "list" -> salesListHelp();
+        case "delete" -> {
+          //          try {
+          //            System.out.println(purchaseDelete(commandSplit[2]));
+          //
+          //          } catch (Exception e) {
+          //            purchaseDeleteHelp();
+          //          }
+        }
+      }
+    } else if (count > 4 && commandSplit[0].equals("sales")) {
+      System.out.println(salesCreate(command));
+    }
+  }
+
+  public int salesCount() throws SQLException {
+    return salesService.salesCount();
+  }
+
+  public int salesCountOnDate(String date) throws SQLException {
+    return salesService.salesCountOnDate(date);
+  }
 
   public String salesCreate(String command) throws SQLException {
     String[] splitByComma = StringUtils.split(command, "[\\[\\]\\ \\,\\]");
@@ -63,11 +100,8 @@ public class SalesCLI {
     if (choice.equals("y") || choice.equals("yes")) {
       try {
         Sales sales = new Sales(1, date, invoice, grandTotal);
-
         salesService.newSales(sales);
-
         salesItemService.createNewSalesItems(invoice, salesItems);
-
         return "Sale Successful";
       } catch (Exception e) {
         throw new SQLException(e.getMessage());
@@ -77,47 +111,20 @@ public class SalesCLI {
   }
 
   public void salesList() throws SQLException {
-    ResultSet rs1 = DBConnection.statement.executeQuery("select count(*) from sales");
-    if (rs1.next()) {
-      System.out.println(rs1.getString("count"));
-    }
-    ResultSet rs = DBConnection.statement.executeQuery("select * from sales");
-
-    while (rs.next()) {
-      String date = rs.getString("date");
-      int invoice = rs.getInt("invoice");
-      double grandTotal = 0;
-
-      ArrayList<SalesItem> salesItems = new ArrayList<>();
-      rs =
-          DBConnection.statement.executeQuery(
-              "select * from sales_items where invoice = " + invoice);
-      while (rs.next()) {
-        int SIInvoice = rs.getInt("invoice");
-        int SICode = rs.getInt("code");
-        double SIQuantity = rs.getDouble("quantity");
-        double SIPrice = rs.getDouble("price");
-        grandTotal += SIPrice;
-        SalesItem salesItem = new SalesItem(SIInvoice, SICode, SIQuantity, SIPrice);
-        salesItems.add(salesItem);
+    ArrayList<Sales> salesList = salesService.salesList();
+    ArrayList<SalesItem> salesItemsList = salesItemService.salesItemList();
+    for (Sales sales : salesList) {
+      System.out.println(sales.getInvoice() + " : \n");
+      for (SalesItem salesItem : salesItemsList) {
+        if (Objects.equals(sales.getInvoice(), salesItem.getInvoice())) {
+          System.out.println(
+              salesItem.getCode()
+                  + "   "
+                  + salesItem.getItemPrice()
+                  + "   "
+                  + salesItem.getQuantity());
+        }
       }
-      System.out.println("____________________________________________________________");
-      System.out.println(date + "\t\t\t\tSALES BILL\t\t\t" + String.format("%10s", invoice));
-      System.out.println("____________________________________________________________");
-      System.out.println(
-          String.format("%20s", "Code")
-              + String.format("%20s", "Quantity")
-              + String.format("%20s", "Price"));
-      for (SalesItem salesItem : salesItems) {
-        System.out.println(
-            String.format("%20s", salesItem.getCode())
-                + String.format("%20s", salesItem.getQuantity())
-                + String.format("%20s", salesItem.getItemPrice()));
-      }
-
-      System.out.println("____________________________________________________________");
-      System.out.println("GRAND TOTAL\t\t\t\t\t\t\t\t\t\t\t\t" + grandTotal);
-      System.out.println("____________________________________________________________");
     }
   }
 

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductDAO implements ProductCreate, Delete {
+public class ProductDAO implements ProductDAOInterface {
 
   public String productCreate(Product proObj) throws SQLException {
     PreparedStatement ps =
@@ -143,17 +143,20 @@ public class ProductDAO implements ProductCreate, Delete {
 
   public String productPriceUpdate(int code, double price) throws SQLException {
     PreparedStatement ps =
-        DBConnection.connection.prepareStatement(" update products set price = ? where code = ?");
+        DBConnection.connection.prepareStatement(
+            " UPDATE PRODUCTS SET PRODUCT_PRICE = ? WHERE CODE = ?");
     ps.setDouble(1, price);
     ps.setInt(2, code);
+    ps.executeUpdate();
     return "Price updated successfully";
   }
 
   public String productStockUpdate(int code, double stock) throws SQLException {
     PreparedStatement ps =
-        DBConnection.connection.prepareStatement(" update products set stock = ? where code = ?");
+        DBConnection.connection.prepareStatement(" UPDATE PRODUCTS SET STOCK = ? WHERE CODE = ?");
     ps.setDouble(1, stock);
     ps.setInt(2, code);
+    ps.executeUpdate();
     return "Stock updated successfully";
   }
 }

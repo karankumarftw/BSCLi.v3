@@ -2,14 +2,12 @@ package dao;
 
 import connection.DBConnection;
 import entity.Sales;
-import entity.SalesItem;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SalesDAO {
+public class SalesDAO implements SalesDAOInterface {
   private ResultSet rs;
 
   public boolean createSales(Sales sales) throws SQLException {
@@ -27,7 +25,23 @@ public class SalesDAO {
     }
   }
 
-
+  public ArrayList<Sales> salesList() {
+    ArrayList<Sales> sales1 = new ArrayList();
+    try {
+      ResultSet rs = DBConnection.statement.executeQuery("select * from sales");
+      while (rs.next()) {
+        int salesID = rs.getInt("id");
+        String salesDate = rs.getString("date");
+        int invoice = rs.getInt("invoice");
+        double grandTotal = rs.getDouble("grand_total");
+        Sales sales = new Sales(salesID, salesDate, invoice, grandTotal);
+        sales1.add(sales);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return sales1;
+  }
 
   public int salesCount() throws SQLException {
     String query = "SELECT COUNT(*) FROM SALES";
@@ -38,9 +52,9 @@ public class SalesDAO {
     }
     return count;
   }
-  
+
   public int salesCountOnDate(String date) throws SQLException {
-    String query = "select count(*) from sales where date = '"+date+"'";
+    String query = "select count(*) from sales where date = '" + date + "'";
     rs = DBConnection.statement.executeQuery(query);
     int count = 0;
     if (rs.next()) {
@@ -48,6 +62,6 @@ public class SalesDAO {
     }
     return count;
   }
-  
-  
+
+  // public salesDelete()
 }

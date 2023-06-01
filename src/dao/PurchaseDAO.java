@@ -5,8 +5,9 @@ import entity.Purchase;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class PurchaseDAO {
+public class PurchaseDAO implements PurchaseDAOInterface {
   public boolean createPurchase(Purchase purchase) throws SQLException {
     try {
       PreparedStatement ps =
@@ -20,6 +21,20 @@ public class PurchaseDAO {
     } catch (Exception e) {
       throw new SQLException("Invoice Number already exists kindly check the number");
     }
+  }
+
+  public ArrayList<Purchase> purchaseList() throws SQLException {
+    ArrayList<Purchase> purchaseList = new ArrayList<>();
+    ResultSet rs = DBConnection.statement.executeQuery("select * from purchase");
+    while (rs.next()) {
+      int purchaseID = rs.getInt("id");
+      String purchaseDate = rs.getString("date");
+      int invoice = rs.getInt("invoice");
+      double grandTotal = rs.getDouble("grand_total");
+      Purchase purchase = new Purchase(purchaseID, purchaseDate, invoice, grandTotal);
+      purchaseList.add(purchase);
+    }
+    return purchaseList;
   }
 
   public int purchaseCount() throws SQLException {

@@ -52,15 +52,26 @@ public class InputHandler {
       if (AccessControl.userType.equals("sales")) {
         if (!moduleName[0].equals("sales")) {
           System.out.println("You are only allowed to do sales operations !!!");
+        } else {
+          salesAccess(command);
         }
-        salesAccess(command);
+
       } else if (AccessControl.userType.equals("purchase")) {
         if (!moduleName[0].equals("purchase")) {
-          System.out.println("You are only allowed to do purchase operations !!!");
+          if (!moduleName[0].equals("stock")) {
+            if (!moduleName[0].equals("price")) {
+              System.out.println("You are only allowed to do purchase operations !!!");
+            }
+          }
+        } else {
+          purchaseAccess(command);
         }
 
       } else if (AccessControl.userType.equals("admin")) {
-        if (moduleName[0].equals("purchase") || moduleName[0].equals("sales")) {
+        if (moduleName[0].equals("purchase")
+            || moduleName[0].equals("sales")
+            || moduleName[0].equals("stock")
+            || moduleName[0].equals("price")) {
           System.out.println(
               "You are allowed to do Store, unit, stock, price, product, user operations");
         } else {
@@ -74,21 +85,16 @@ public class InputHandler {
     switch (module) {
       case "unit" -> unitCLI.commandSplitter(command);
       case "user" -> userCLI.commandSplitter(command);
-      case "product" -> productCLI.input(command);
-      case "store" -> storeCLI.input(command);
+      case "product" -> productCLI.commandSplitter(command);
+      case "store" -> storeCLI.commandSplitter(command);
     }
   }
 
   public void salesAccess(String command) throws SQLException {
-    String[] operation = command.split(" ");
-
-    switch (operation[1]){
-      case "create" -> salesCLI.salesCreate(command);
-      case "list" -> salesCLI.salesList();
-    }
+    salesCLI.commandSplitter(command);
   }
 
-  public void purchaseAccess() {
-
+  public void purchaseAccess(String command) throws SQLException, NotANumberException {
+    purchaseCLI.commandSplitter(command);
   }
 }

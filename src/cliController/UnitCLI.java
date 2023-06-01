@@ -7,8 +7,8 @@ import java.util.Scanner;
 import service.UnitService;
 
 public class UnitCLI {
-  private Scanner scanner = new Scanner(System.in);
-  private UnitService unitService = new UnitService();
+  private final Scanner scanner = new Scanner(System.in);
+  private final UnitService unitService = new UnitService();
 
   public void commandSplitter(String command) throws SQLException {
     String[] commandSplit = command.split("[ ,]");
@@ -16,14 +16,14 @@ public class UnitCLI {
     if (elementCount > 2 && commandSplit[2].equals("help")) {
       switch (commandSplit[1]) {
         case "create" -> unitCreateHelp();
-        case "edit" -> unitEditByEnter();
+        case "edit" -> System.out.println(unitEditByEnter());
         case "delete" -> unitDeleteHelp();
         case "list" -> unitListHelp();
       }
     } else if (commandSplit[1].equals("list")) {
       unitList();
     } else if (commandSplit[1].equals("delete")) {
-      delete(commandSplit[2]);
+      System.out.println(delete(commandSplit[2]));
     } else if (commandSplit[1].equals("create")) {
       try {
         Unit unit =
@@ -34,7 +34,7 @@ public class UnitCLI {
                 Boolean.parseBoolean(commandSplit[5]));
         unitService.unitCreate(unit);
       } catch (Exception e) {
-        unitCreateByEnter();
+        System.out.println(unitCreateByEnter());
       }
     } else if (commandSplit[1].equals("edit")) {
       try {
@@ -90,8 +90,8 @@ public class UnitCLI {
     }
   }
 
-  void delete(String unitCode) throws SQLException {
-    unitService.unitDelete(unitCode);
+  String delete(String unitCode) throws SQLException {
+    return unitService.unitDelete(unitCode);
   }
 
   void unitEditHelp() {

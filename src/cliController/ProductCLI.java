@@ -6,21 +6,19 @@ import java.util.Scanner;
 import service.NotANumberException;
 import service.ProductNotValidException;
 import service.ProductService;
-import service.ProductValidator;
 
 public class ProductCLI {
-  private ProductValidator productValidator = new ProductValidator();
-  private ProductService productService = new ProductService();
+  private final ProductService productService = new ProductService();
 
-  public void input(String command)
+  public void commandSplitter(String command)
       throws SQLException, ProductNotValidException, NotANumberException {
     String[] commandSplit = command.split("[ ,]");
     int elementCount = commandSplit.length;
 
     if (elementCount < 3) {
       switch (commandSplit[1]) {
-        case "create" -> productCreateByEnter();
-        case "edit" -> productEditByEnter();
+        case "create" -> System.out.println(productCreateByEnter());
+        case "edit" -> System.out.println(productEditByEnter());
         case "list" -> productList();
       }
     } else if (commandSplit[2].equals("help")) {
@@ -35,7 +33,6 @@ public class ProductCLI {
     }
   }
 
-
   void productList() throws SQLException {
     for (Product product : productService.productList()) {
       System.out.println(product.getName());
@@ -44,24 +41,23 @@ public class ProductCLI {
 
   String productCreateByEnter() throws SQLException, ProductNotValidException {
     Scanner scanner = new Scanner(System.in);
-   try{
-     System.out.print("> ");
-     String[] productCreateInput = scanner.nextLine().split("[, ]");
-     Product product =
-             new Product(
-                     Integer.parseInt(productCreateInput[0]),
-                     productCreateInput[1],
-                     productCreateInput[2],
-                     productCreateInput[3],
-                     Double.parseDouble(productCreateInput[4]),
-                     Double.parseDouble(productCreateInput[5]));
+    try {
+      System.out.print("> ");
+      String[] productCreateInput = scanner.nextLine().split("[, ]");
+      Product product =
+          new Product(
+              Integer.parseInt(productCreateInput[0]),
+              productCreateInput[1],
+              productCreateInput[2],
+              productCreateInput[3],
+              Double.parseDouble(productCreateInput[4]),
+              Double.parseDouble(productCreateInput[5]));
 
-     return productService.productCreate(product);
-   }
-   catch(Exception e){
+      return productService.productCreate(product);
+    } catch (Exception e) {
       System.out.println(e.getMessage());
-   }
-return null;
+    }
+    return null;
   }
 
   String productEditByEnter() throws SQLException, ProductNotValidException {
@@ -156,26 +152,5 @@ return null;
             + "> product delete <id>");
   }
 
-  void priceUpdateHelp() {
-    System.out.println(
-        "Update sales price per unit using the following template\n"
-            + "\t\tcode, price\n"
-            + "\t\t\n"
-            + "\t\tcode - text, mandatory\n"
-            + "\t\tprice - number, mandatory\n"
-            + "\t\t\n"
-            + "> price update <code> <price>\t");
-  }
 
-  void stockUpdateHelp() {
-    System.out.println(
-        "stock update help\n"
-            + ">> update stock using following template\n"
-            + "\t\tcode, quantity\n"
-            + "\t\t\n"
-            + "\t\tcode - text, mandatory\n"
-            + "\t\tquantity - number, mandatory\n"
-            + "\n"
-            + "> stock update <code> <quantity>");
-  }
 }

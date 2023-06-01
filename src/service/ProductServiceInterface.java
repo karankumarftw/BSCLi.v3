@@ -5,20 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ProductServiceInterface {
-  public String productDelete(String code) throws SQLException, NotANumberException;
+  String productDelete(String code) throws SQLException, NotANumberException;
 
-  public ArrayList<Product> productList() throws SQLException;
+  ArrayList<Product> productList() throws SQLException;
 
-  public String productCreate(Product product) throws SQLException, NotANumberException, ProductNotValidException;
+  String productCreate(Product product) throws SQLException, NotANumberException, ProductNotValidException;
 
-  public Integer productCount() throws SQLException;
+  Integer productCount() throws SQLException;
 
-  public String productEdit(Product product) throws SQLException, ProductNotValidException;
+  String productEdit(Product product) throws SQLException, ProductNotValidException;
 
-  public ArrayList<Product> productListWithPageLimit(String pageLimit) throws NotANumberException;
+  ArrayList<Product> productListWithPageLimit(String pageLimit) throws NotANumberException;
 
   public ArrayList<Product> productListWithPageLimitAndPageCount(String pageLimit, String pageCount)
-      throws NotANumberException;
+          throws NotANumberException;
 
-  public ArrayList<Product> globalSearch(String searchValue) throws SQLException;
+  ArrayList<Product> globalSearch(String searchValue) throws SQLException;
 }

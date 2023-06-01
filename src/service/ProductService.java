@@ -9,7 +9,7 @@ public class ProductService implements ProductServiceInterface {
   ProductDAO productDAO = new ProductDAO();
   ProductValidator productValidator = new ProductValidator();
 
-  public String productDelete(String code) throws SQLException, NotANumberException {
+  public String productDelete(String code) throws NotANumberException {
     try {
       return productDAO.delete(code);
     } catch (Exception e) {
@@ -34,7 +34,7 @@ public class ProductService implements ProductServiceInterface {
     return productDAO.count();
   }
 
-  public String productEdit(Product product) throws SQLException, ProductNotValidException {
+  public String productEdit(Product product) throws ProductNotValidException {
     try {
       productValidator.productValidator(product);
       return productDAO.productEdit(product);

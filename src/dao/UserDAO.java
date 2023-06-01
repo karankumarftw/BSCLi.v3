@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserDAO implements Delete {
+public class UserDAO implements UserDAOInterface {
 
   public String delete(String userName) throws SQLException {
     String query = "DELETE FROM USERS WHERE USER_NAME = " + userName;
