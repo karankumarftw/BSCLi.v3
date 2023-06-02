@@ -4,11 +4,11 @@ import entity.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import service.UserService;
+import service.UserServiceImplementation;
 
 public class UserCLI {
   private final Scanner scanner = new Scanner(System.in);
-  UserService userService = new UserService();
+  UserServiceImplementation userService = new UserServiceImplementation();
 
   public void commandSplitter(String command) throws Exception {
     String[] commandSplit = command.split("[ ,]");
@@ -40,7 +40,7 @@ public class UserCLI {
             command[4],
             Long.parseLong(command[5]));
 
-    return userService.userCreate(user);
+    return userService.create(user);
   }
 
   String userCreate(String commandString) throws SQLException {
@@ -58,7 +58,7 @@ public class UserCLI {
               command[6],
               Long.parseLong(command[7]));
 
-      return userService.userCreate(user);
+      return userService.create(user);
 
     } catch (Exception e) {
       throw new NumberFormatException(e.getMessage());
@@ -79,7 +79,7 @@ public class UserCLI {
               command[6],
               Long.parseLong(command[7]));
 
-      return userService.userEdit(user);
+      return userService.edit(user);
 
     } catch (Exception e) {
       throw new NumberFormatException(e.getMessage());
@@ -99,11 +99,11 @@ public class UserCLI {
             command[4],
             Long.parseLong(command[5]));
 
-    return userService.userEdit(user);
+    return userService.edit(user);
   }
 
   void userList() throws SQLException {
-    ArrayList<User> userList = userService.userList();
+    ArrayList<User> userList = userService.list();
     for (User user : userList) {
       System.out.println(user.getUserName() + "   " + user.getUserType());
     }

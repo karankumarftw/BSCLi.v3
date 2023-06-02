@@ -1,33 +1,12 @@
 package service;
 
-import dao.StoreDAO;
 import entity.Store;
 import java.sql.SQLException;
 
-public class StoreService implements StoreServiceInterface{
-    private StoreDAO storeDAO = new StoreDAO();
-    private StoreValidator storeValidator = new StoreValidator();
+public interface StoreService {
+  String create(Store store) throws Exception;
 
-    public String createStore(Store store) throws Exception {
+  String edit(Store store) throws SQLException, StoreNotValidException;
 
-        try {
-            storeValidator.storeValidator(store);
-            return storeDAO.createStore(store);
-        } catch (Exception e) {
-            throw new StoreNotValidException(e.getMessage());
-        }
-    }
-
-    public String editStore(Store store) throws SQLException, StoreNotValidException {
-        try {
-            storeValidator.storeValidator(store);
-            return storeDAO.editStore(store);
-        } catch (Exception e) {
-            throw new StoreNotValidException(e.getMessage());
-        }
-    }
-
-    public String deleteStore() throws SQLException {
-        return storeDAO.deleteStore();
-    }
+  String delete() throws SQLException;
 }

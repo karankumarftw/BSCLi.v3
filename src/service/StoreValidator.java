@@ -1,10 +1,9 @@
 package service;
 
 import entity.Store;
-import java.sql.SQLException;
 
 public class StoreValidator {
-  public void storeValidator(Store store) throws StoreNotValidException {
+  public void validator(Store store) throws StoreNotValidException {
 
     String name = store.getStoreName();
     String phoneNumber = String.valueOf(store.getPhoneNumber());

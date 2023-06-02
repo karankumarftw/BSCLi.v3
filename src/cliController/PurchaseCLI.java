@@ -8,14 +8,14 @@ import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
 import service.NotANumberException;
-import service.ProductService;
-import service.PurchaseItemService;
-import service.PurchaseService;
+import service.ProductServiceImplementation;
+import service.PurchaseItemServiceImplementation;
+import service.PurchaseServiceImplementation;
 
 public class PurchaseCLI {
-  private final PurchaseItemService purchaseItemService = new PurchaseItemService();
-  private final PurchaseService purchaseService = new PurchaseService();
-  private final ProductService productService = new ProductService();
+  private final PurchaseItemServiceImplementation purchaseItemService = new PurchaseItemServiceImplementation();
+  private final PurchaseServiceImplementation purchaseService = new PurchaseServiceImplementation();
+  private final ProductServiceImplementation productService = new ProductServiceImplementation();
   private final Scanner scanner = new Scanner(System.in);
 
   void commandSplitter(String command) throws SQLException, NotANumberException {
@@ -118,9 +118,9 @@ public class PurchaseCLI {
       try {
         Purchase purchase = new Purchase(1, date, invoice, grandTotal);
 
-        purchaseService.newPurchase(purchase);
+        purchaseService.create(purchase);
 
-        purchaseItemService.createNewPurchaseItems(invoice, purchaseItems);
+        purchaseItemService.create(invoice, purchaseItems);
 
         return "Purchase Successful";
       } catch (Exception e) {
@@ -140,12 +140,12 @@ public class PurchaseCLI {
 
   public String purchaseDelete(String invoice) throws SQLException {
     int invoiceNo = Integer.parseInt(invoice);
-    purchaseItemService.deletePurchaseItem(invoiceNo);
+    purchaseItemService.delete(invoiceNo);
     return purchaseService.purchaseDelete(invoiceNo);
   }
 
   public String priceUpdate(String code, String price) throws NotANumberException {
-    return productService.productPriceUpdate(code, price);
+    return productService.priceUpdate(code, price);
   }
 
   public String stockUpdate(String code, String stock) throws NotANumberException {

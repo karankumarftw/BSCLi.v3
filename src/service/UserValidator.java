@@ -3,7 +3,7 @@ package service;
 import entity.User;
 
 public class UserValidator {
-  public void userValidator(
+  public void validator(
       User user)
       throws Exception {
 
@@ -40,7 +40,7 @@ public class UserValidator {
       throw new UserNotValidException(
           "Invalid phone number, The number should start with either one of these, 9,8,7,6");
     }
-    
+
     long phoneNumber;
     try{
       phoneNumber = Long.parseLong(userPhoneNumber);

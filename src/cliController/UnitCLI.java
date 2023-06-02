@@ -4,11 +4,11 @@ import entity.Unit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import service.UnitService;
+import service.UnitServiceImplementation;
 
 public class UnitCLI {
   private final Scanner scanner = new Scanner(System.in);
-  private final UnitService unitService = new UnitService();
+  private final UnitServiceImplementation unitService = new UnitServiceImplementation();
 
   public void commandSplitter(String command) throws SQLException {
     String[] commandSplit = command.split("[ ,]");
@@ -32,7 +32,7 @@ public class UnitCLI {
                 commandSplit[3],
                 commandSplit[4],
                 Boolean.parseBoolean(commandSplit[5]));
-        unitService.unitCreate(unit);
+        unitService.create(unit);
       } catch (Exception e) {
         System.out.println(unitCreateByEnter());
       }
@@ -44,7 +44,7 @@ public class UnitCLI {
                 commandSplit[3],
                 commandSplit[4],
                 Boolean.parseBoolean(commandSplit[5]));
-        unitService.unitEdit(unit);
+        unitService.edit(unit);
       } catch (Exception e) {
         unitEditByEnter();
       }
@@ -61,7 +61,7 @@ public class UnitCLI {
             commandSplitted[2],
             Boolean.parseBoolean(commandSplitted[3]));
 
-    return unitService.unitCreate(unit);
+    return unitService.create(unit);
   }
 
   String unitEditByEnter() throws SQLException {
@@ -74,12 +74,12 @@ public class UnitCLI {
             commandSplit[2],
             Boolean.parseBoolean(commandSplit[3]));
 
-    return unitService.unitEdit(unit);
+    return unitService.edit(unit);
   }
 
   void unitList() {
     try {
-      ArrayList<Unit> units = unitService.unitList();
+      ArrayList<Unit> units = unitService.list();
       System.out.println("---------------------");
       System.out.println("       UNIT CODE     ");
       for (int i = 0; i < units.size(); i++) {
@@ -91,7 +91,7 @@ public class UnitCLI {
   }
 
   String delete(String unitCode) throws SQLException {
-    return unitService.unitDelete(unitCode);
+    return unitService.delete(unitCode);
   }
 
   void unitEditHelp() {

@@ -1,13 +1,13 @@
 package service;
 
-import dao.UnitDAO;
+import dao.UnitDAOImplementation;
 import entity.Product;
 import java.sql.SQLException;
 
 public class ProductValidator {
-  UnitDAO unitDAO = new UnitDAO();
+  UnitDAOImplementation unitDAO = new UnitDAOImplementation();
   // String code, String name, String unit, String type, String price, String stock
-  public Boolean productValidator(Product product)
+  public Boolean validator(Product product)
       throws SQLException, ProductNotValidException, NotANumberException {
 
     String code = String.valueOf(product.getCode());

@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import service.NotANumberException;
 import service.ProductNotValidException;
-import service.ProductService;
+import service.ProductServiceImplementation;
 
 public class ProductCLI {
-  private final ProductService productService = new ProductService();
+  private final ProductServiceImplementation productService = new ProductServiceImplementation();
 
   public void commandSplitter(String command)
       throws SQLException, ProductNotValidException, NotANumberException {
@@ -29,12 +29,12 @@ public class ProductCLI {
         case "delete" -> productDeleteHelp();
       }
     } else if (commandSplit[1].equals("delete")) {
-      productService.productDelete(commandSplit[2]);
+      productService.delete(commandSplit[2]);
     }
   }
 
   void productList() throws SQLException {
-    for (Product product : productService.productList()) {
+    for (Product product : productService.list()) {
       System.out.println(product.getName());
     }
   }
@@ -53,7 +53,7 @@ public class ProductCLI {
               Double.parseDouble(productCreateInput[4]),
               Double.parseDouble(productCreateInput[5]));
 
-      return productService.productCreate(product);
+      return productService.create(product);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -73,7 +73,7 @@ public class ProductCLI {
             Double.parseDouble(productCreateInput[4]),
             Double.parseDouble(productCreateInput[5]));
 
-    return productService.productEdit(product);
+    return productService.edit(product);
   }
 
   void productCreateHelp() {

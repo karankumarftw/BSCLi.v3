@@ -3,7 +3,7 @@ package service;
 import entity.Unit;
 
 public class UnitValidator {
-  public void unitValidator(Unit unit) throws UnitNotValidException {
+  public void validator(Unit unit) throws UnitNotValidException {
 
     String name = unit.getName();
     String code = unit.getCode();

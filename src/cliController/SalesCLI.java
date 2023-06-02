@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
-import service.ProductService;
-import service.SalesItemService;
-import service.SalesService;
+import service.ProductServiceImplementation;
+import service.SalesItemServiceImplementation;
+import service.SalesServiceImplementation;
 
 public class SalesCLI {
-  private final SalesItemService salesItemService = new SalesItemService();
-  private final SalesService salesService = new SalesService();
+  private final SalesItemServiceImplementation salesItemService = new SalesItemServiceImplementation();
+  private final SalesServiceImplementation salesService = new SalesServiceImplementation();
   private final Scanner scanner = new Scanner(System.in);
-  private final ProductService productService = new ProductService();
+  private final ProductServiceImplementation productService = new ProductServiceImplementation();
 
   public void commandSplitter(String command) throws SQLException {
     String[] commandSplit = command.split("[ ,]");
@@ -35,7 +35,7 @@ public class SalesCLI {
         case "list" -> salesListHelp();
         case "delete" -> {
           //          try {
-          //            System.out.println(purchaseDelete(commandSplit[2]));
+          //            System.out.println(delete(commandSplit[2]));
           //
           //          } catch (Exception e) {
           //            purchaseDeleteHelp();
@@ -48,11 +48,11 @@ public class SalesCLI {
   }
 
   public int salesCount() throws SQLException {
-    return salesService.salesCount();
+    return salesService.count();
   }
 
   public int salesCountOnDate(String date) throws SQLException {
-    return salesService.salesCountOnDate(date);
+    return salesService.countOnDate(date);
   }
 
   public String salesCreate(String command) throws SQLException {
@@ -100,8 +100,8 @@ public class SalesCLI {
     if (choice.equals("y") || choice.equals("yes")) {
       try {
         Sales sales = new Sales(1, date, invoice, grandTotal);
-        salesService.newSales(sales);
-        salesItemService.createNewSalesItems(invoice, salesItems);
+        salesService.create(sales);
+        salesItemService.create(invoice, salesItems);
         return "Sale Successful";
       } catch (Exception e) {
         throw new SQLException(e.getMessage());
@@ -111,7 +111,7 @@ public class SalesCLI {
   }
 
   public void salesList() throws SQLException {
-    ArrayList<Sales> salesList = salesService.salesList();
+    ArrayList<Sales> salesList = salesService.list();
     ArrayList<SalesItem> salesItemsList = salesItemService.salesItemList();
     for (Sales sales : salesList) {
       System.out.println(sales.getInvoice() + " : \n");

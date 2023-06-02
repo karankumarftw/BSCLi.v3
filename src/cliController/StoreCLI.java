@@ -4,10 +4,10 @@ import entity.Store;
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.apache.commons.lang3.StringUtils;
-import service.StoreService;
+import service.StoreServiceImplementation;
 
 public class StoreCLI {
-  StoreService storeService = new StoreService();
+  StoreServiceImplementation storeService = new StoreServiceImplementation();
   Scanner scanner = new Scanner(System.in);
 
   void commandSplitter(String command) throws Exception {
@@ -40,7 +40,7 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.createStore(store);
+    return storeService.create(store);
   }
 
   String createStoreByEnter() throws Exception {
@@ -53,7 +53,7 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.createStore(store);
+    return storeService.create(store);
   }
 
   String editStore(String command) throws Exception {
@@ -66,7 +66,7 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.editStore(store);
+    return storeService.edit(store);
   }
 
   String editStoreByEnter() throws Exception {
@@ -80,11 +80,11 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.editStore(store);
+    return storeService.edit(store);
   }
 
   String deleteStore() throws SQLException {
-    storeService.deleteStore();
+    storeService.delete();
     return null;
   }
 

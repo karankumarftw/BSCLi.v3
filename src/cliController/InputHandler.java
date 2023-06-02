@@ -8,12 +8,12 @@ import service.StoreValidator;
 import service.UserValidator;
 
 public class InputHandler {
-  ProductService productService = new ProductService();
-  UserService userService = new UserService();
+  ProductServiceImplementation productService = new ProductServiceImplementation();
+  UserServiceImplementation userService = new UserServiceImplementation();
   UserValidator userValidator = new UserValidator();
-  PurchaseService purchaseService = new PurchaseService();
+  PurchaseServiceImplementation purchaseService = new PurchaseServiceImplementation();
   PurchaseCLI purchaseCLI = new PurchaseCLI();
-  UnitService unitService = new UnitService();
+  UnitServiceImplementation unitService = new UnitServiceImplementation();
   SalesCLI salesCLI = new SalesCLI();
   StoreCLI storeCLI = new StoreCLI();
   StoreValidator storeValidator = new StoreValidator();
