@@ -3,16 +3,21 @@ package service;
 import entity.User;
 
 public class UserValidator {
-  public void validator(
-      User user)
-      throws Exception {
 
-      String userType = user.getUserType();
-      String userName = user.getUserName();
-      String userPassword = user.getPassword();
-      String userFirstName = user.getFirstName();
-      String userLastName = user.getLastName();
-      String userPhoneNumber = String.valueOf(user.getUserPhoneNumber());
+  /**
+   * Validates the given user.
+   *
+   * @param user The user to be validated.
+   * @throws Exception If an error occurs during validation.
+   */
+  public void validator(User user) throws Exception {
+
+    String userType = user.getUserType();
+    String userName = user.getUserName();
+    String userPassword = user.getPassword();
+    String userFirstName = user.getFirstName();
+    String userLastName = user.getLastName();
+    String userPhoneNumber = String.valueOf(user.getUserPhoneNumber());
     if (!userType.equals("sales") && !userType.equals("purchase")) {
       throw new UserNotValidException("User Type either should be sales or purchase");
     }
@@ -42,12 +47,10 @@ public class UserValidator {
     }
 
     long phoneNumber;
-    try{
+    try {
       phoneNumber = Long.parseLong(userPhoneNumber);
-    }
-    catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       throw new UnitNotValidException("Phone number of the user should ");
     }
-
   }
 }

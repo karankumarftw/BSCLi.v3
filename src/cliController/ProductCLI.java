@@ -3,33 +3,41 @@ package cliController;
 import entity.Product;
 import java.sql.SQLException;
 import java.util.Scanner;
-import service.NotANumberException;
-import service.ProductNotValidException;
 import service.ProductServiceImplementation;
 
 public class ProductCLI {
   private final ProductServiceImplementation productService = new ProductServiceImplementation();
 
-  public void commandSplitter(String command)
-      throws SQLException, ProductNotValidException, NotANumberException {
+  public void commandSplitter(String command) {
     String[] commandSplit = command.split("[ ,]");
     int elementCount = commandSplit.length;
 
-    if (elementCount < 3) {
-      switch (commandSplit[1]) {
-        case "create" -> System.out.println(productCreateByEnter());
-        case "edit" -> System.out.println(productEditByEnter());
-        case "list" -> productList();
-      }
-    } else if (commandSplit[2].equals("help")) {
-      switch (commandSplit[1]) {
-        case "create" -> productCreateHelp();
-        case "list" -> productListHelp();
-        case "edit" -> productEditHelp();
-        case "delete" -> productDeleteHelp();
-      }
-    } else if (commandSplit[1].equals("delete")) {
-      productService.delete(commandSplit[2]);
+    try {
+            if (elementCount < 3) {
+              switch (commandSplit[1]) {
+                case "create" -> productCreateByEnter();
+                case "edit" -> productEditByEnter();
+                case "list" -> productList();
+                case "delete" -> {
+                  System.out.println("came here");
+                  Integer count = productService.delete(commandSplit[2]);
+                  if (count == 0) {
+                    System.out.println("Could not delete, Check the product ID");
+                  } else {
+                    System.out.println("Product deleted successfully!!!");
+                  }
+                }
+              }
+            } else if (commandSplit[2].equals("help")) {
+              switch (commandSplit[1]) {
+                case "create" -> productCreateHelp();
+                case "list" -> productListHelp();
+                case "edit" -> productEditHelp();
+                case "delete" -> productDeleteHelp();
+              }
+            }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
   }
 
@@ -39,7 +47,7 @@ public class ProductCLI {
     }
   }
 
-  String productCreateByEnter() throws SQLException, ProductNotValidException {
+  void productCreateByEnter() {
     Scanner scanner = new Scanner(System.in);
     try {
       System.out.print("> ");
@@ -53,27 +61,30 @@ public class ProductCLI {
               Double.parseDouble(productCreateInput[4]),
               Double.parseDouble(productCreateInput[5]));
 
-      return productService.create(product);
+      productService.create(product);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-    return null;
   }
 
-  String productEditByEnter() throws SQLException, ProductNotValidException {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("> ");
-    String[] productCreateInput = scanner.nextLine().split("[, ]");
-    Product product =
-        new Product(
-            Integer.parseInt(productCreateInput[0]),
-            productCreateInput[1],
-            productCreateInput[2],
-            productCreateInput[3],
-            Double.parseDouble(productCreateInput[4]),
-            Double.parseDouble(productCreateInput[5]));
+  void productEditByEnter() {
+    try {
+      Scanner scanner = new Scanner(System.in);
+      System.out.print("> ");
+      String[] productCreateInput = scanner.nextLine().split("[, ]");
+      Product product =
+          new Product(
+              Integer.parseInt(productCreateInput[0]),
+              productCreateInput[1],
+              productCreateInput[2],
+              productCreateInput[3],
+              Double.parseDouble(productCreateInput[4]),
+              Double.parseDouble(productCreateInput[5]));
 
-    return productService.edit(product);
+      productService.edit(product);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   void productCreateHelp() {
@@ -151,6 +162,4 @@ public class ProductCLI {
             + "\n"
             + "> product delete <id>");
   }
-
-
 }

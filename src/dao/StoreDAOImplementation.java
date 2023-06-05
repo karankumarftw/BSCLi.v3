@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class StoreDAOImplementation implements StoreDAO {
-  public String create(Store store) throws SQLException {
+  public void create(Store store) throws SQLException {
     try {
       PreparedStatement ps =
           DBConnection.connection.prepareStatement("INSERT INTO STORE VALUES (?,?,?,?)");
@@ -15,13 +15,12 @@ public class StoreDAOImplementation implements StoreDAO {
       ps.setString(3, store.getAddress());
       ps.setString(4, store.getGstNumber());
       ps.executeUpdate();
-      return "Store created Successfully";
     } catch (SQLException e) {
       throw new SQLException("The store name already exists");
     }
   }
 
-  public String edit(Store store) throws SQLException {
+  public void edit(Store store) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "UPDATE STORE SET STORE_PHONE_NUMBER = ?, STORE_ADDRESS = ?, STORE_GST_NUMBER = ? WHERE STORE_NAME = ?");
@@ -31,11 +30,9 @@ public class StoreDAOImplementation implements StoreDAO {
     ps.setString(3, store.getGstNumber());
     ps.setString(4, store.getStoreName());
     ps.executeUpdate();
-    return "Store edited Successfully";
   }
 
-  public String delete() throws SQLException {
-    DBConnection.statement.executeQuery("DELETE FROM STORE WHERE STORE_NAME");
-    return "Store deleted successfully";
+  public Integer delete() throws SQLException {
+    return DBConnection.statement.executeUpdate("DELETE FROM STORE WHERE STORE_NAME");
   }
 }

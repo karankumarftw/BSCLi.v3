@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class SalesDAOImplementation implements SalesDAO {
   private ResultSet rs;
 
-  public boolean sales(Sales sales) throws SQLException {
+  public void sales(Sales sales) throws SQLException {
     try {
       PreparedStatement ps =
           DBConnection.connection.prepareStatement(
@@ -19,7 +19,6 @@ public class SalesDAOImplementation implements SalesDAO {
       ps.setInt(2, sales.getInvoice());
       ps.setDouble(3, sales.getGrandTotal());
       ps.executeUpdate();
-      return true;
     } catch (Exception e) {
       throw new SQLException("Invoice Number already exists kindly check the number");
     }

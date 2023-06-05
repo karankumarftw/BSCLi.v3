@@ -20,7 +20,7 @@ public class UnitDAOImplementation implements UnitDAO {
   }
 
   @Override
-  public String create(Unit unitObj) throws SQLException {
+  public void create(Unit unitObj) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement("INSERT INTO UNIT VALUES (?,?,?,?)");
     ps.setString(1, unitObj.getName());
@@ -28,11 +28,10 @@ public class UnitDAOImplementation implements UnitDAO {
     ps.setString(3, unitObj.getDescription());
     ps.setBoolean(4, unitObj.getIsDividable());
     ps.executeUpdate();
-    return "Unit created Successfully";
   }
 
   @Override
-  public String edit(Unit unitObj) throws SQLException {
+  public void edit(Unit unitObj) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "UPDATE UNIT SET UNIT_NAME = ?, UNIT_DESCRIPTION = ? , UNIT_IS_DIVIDABLE = ? WHERE UNIT_CODE = ?");
@@ -41,14 +40,13 @@ public class UnitDAOImplementation implements UnitDAO {
     ps.setBoolean(3, unitObj.getIsDividable());
     ps.setString(4, unitObj.getCode());
     ps.executeUpdate();
-    return "Unit edited Successfully";
   }
 
   @Override
-  public String delete(String data) throws SQLException {
+  public Integer delete(String data) throws SQLException {
     String query = "DELETE FROM UNIT WHERE UNIT_CODE = '" + data + "'";
-    DBConnection.statement.execute(query);
-    return "Unit deleted successfully";
+
+    return DBConnection.statement.executeUpdate(query);
   }
 
   @Override

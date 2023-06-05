@@ -10,12 +10,7 @@ public class SalesServiceImplementation implements SalesService {
   private final SalesDAOImplementation salesDAO = new SalesDAOImplementation();
 
   public void create(Sales sales) throws SQLException {
-
-    boolean successOrFail = salesDAO.sales(sales);
-
-    if (successOrFail) {
-      System.out.println("Sales Successful");
-    }
+    salesDAO.sales(sales);
   }
 
   public int count() throws SQLException {

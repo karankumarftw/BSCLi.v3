@@ -15,19 +15,19 @@ public class UserCLI {
     int count = commandSplit.length;
 
     if (count < 3 && commandSplit[1].equals("create")) {
-      System.out.println(userCreateByEnter());
+      userCreateByEnter();
     } else if (count < 3 && commandSplit[1].equals("edit")) {
       System.out.println(userEditByEnter());
     } else if (count < 3 && commandSplit[1].equals("list")) {
       userList();
     } else if (count > 4 && commandSplit[1].equals("create")) {
-      System.out.println(userCreate(command));
+      userCreate(command);
     } else if (count > 5 && commandSplit[1].equals("edit")) {
       System.out.println(userEdit(command));
     }
   }
 
-  String userCreateByEnter() throws Exception {
+  void userCreateByEnter() throws Exception {
     System.out.print("> ");
     String[] command = scanner.nextLine().split("[ ,]");
     User user =
@@ -40,10 +40,11 @@ public class UserCLI {
             command[4],
             Long.parseLong(command[5]));
 
-    return userService.create(user);
+    userService.create(user);
+    System.out.println("Successfully created");
   }
 
-  String userCreate(String commandString) throws SQLException {
+  void userCreate(String commandString) throws SQLException {
 
     String[] command = commandString.split("[ ,]");
 
@@ -58,7 +59,8 @@ public class UserCLI {
               command[6],
               Long.parseLong(command[7]));
 
-      return userService.create(user);
+      userService.create(user);
+      System.out.println("User created successfully");
 
     } catch (Exception e) {
       throw new NumberFormatException(e.getMessage());
@@ -78,8 +80,8 @@ public class UserCLI {
               command[5],
               command[6],
               Long.parseLong(command[7]));
-
-      return userService.edit(user);
+      userService.edit(user);
+      return "User edited successfully";
 
     } catch (Exception e) {
       throw new NumberFormatException(e.getMessage());
@@ -99,7 +101,8 @@ public class UserCLI {
             command[4],
             Long.parseLong(command[5]));
 
-    return userService.edit(user);
+    userService.edit(user);
+    return "User edited successfully";
   }
 
   void userList() throws SQLException {

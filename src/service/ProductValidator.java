@@ -7,7 +7,16 @@ import java.sql.SQLException;
 public class ProductValidator {
   UnitDAOImplementation unitDAO = new UnitDAOImplementation();
   // String code, String name, String unit, String type, String price, String stock
-  public Boolean validator(Product product)
+
+  /**
+   * Validates the given product.
+   *
+   * @param product The product to be validated.
+   * @throws SQLException If an error occurs while accessing the database.
+   * @throws ProductNotValidException If the product is not valid according to business rules.
+   * @throws NotANumberException If a numeric value in the product is not a valid number.
+   */
+  public void validator(Product product)
       throws SQLException, ProductNotValidException, NotANumberException {
 
     String code = String.valueOf(product.getCode());
@@ -56,8 +65,6 @@ public class ProductValidator {
     } catch (Exception e) {
       throw new NotANumberException("The product stock should be numeric");
     }
-
-    return true;
   }
 
   enum productType {

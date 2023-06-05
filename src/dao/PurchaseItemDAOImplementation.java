@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PurchaseItemDAOImplementation implements PurchaseItemDAO {
-  public String insert(int invoice, PurchaseItem purchaseItem) throws SQLException {
+  public void insert(int invoice, PurchaseItem purchaseItem) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "INSERT INTO PURCHASE_ITEMS(INVOICE,CODE,QUANTITY,COST_PRICE) VALUES(?,?,?,?)");
@@ -17,7 +17,6 @@ public class PurchaseItemDAOImplementation implements PurchaseItemDAO {
     ps.setDouble(3, purchaseItem.getQuantity());
     ps.setDouble(4, purchaseItem.getCostPrice());
     ps.executeUpdate();
-    return "Purchased Item inserted successfully. CODE : " + purchaseItem.getCode();
   }
 
   public ArrayList<PurchaseItem> list() throws SQLException {

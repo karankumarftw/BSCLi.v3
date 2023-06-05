@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PurchaseDAOImplementation implements PurchaseDAO {
 
-  public boolean create(Purchase purchase) throws SQLException {
+  public void create(Purchase purchase) throws SQLException {
     try {
       PreparedStatement ps =
           DBConnection.connection.prepareStatement(
@@ -18,7 +18,6 @@ public class PurchaseDAOImplementation implements PurchaseDAO {
       ps.setInt(2, purchase.getInvoice());
       ps.setDouble(3, purchase.getGrandTotal());
       ps.executeUpdate();
-      return true;
     } catch (Exception e) {
       throw new SQLException("Invoice Number already exists kindly check the number");
     }
@@ -58,8 +57,9 @@ public class PurchaseDAOImplementation implements PurchaseDAO {
     return count;
   }
 
-  public String delete(int invoice) throws SQLException {
-    DBConnection.statement.execute("delete from purchase where invoice = " + invoice);
-    return "Purchase deleted successfully";
+  public Integer delete(int invoice) throws SQLException {
+    Integer rowsAffected =
+        DBConnection.statement.executeUpdate("delete from purchase where invoice = " + invoice);
+    return rowsAffected;
   }
 }

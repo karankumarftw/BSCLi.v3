@@ -3,6 +3,13 @@ package service;
 import entity.Unit;
 
 public class UnitValidator {
+
+  /**
+   * Validates the given unit.
+   *
+   * @param unit The unit to be validated.
+   * @throws UnitNotValidException If the unit is not valid according to business rules.
+   */
   public void validator(Unit unit) throws UnitNotValidException {
 
     String name = unit.getName();

@@ -48,10 +48,6 @@ public class PurchaseCLI {
       System.out.println(purchaseDelete(commandSplit[2]));
     } else if (commandSplit[0].equals("purchase")) {
       System.out.println(purchaseCreate(command));
-    } else if (commandSplit[0].equals("stock")) {
-      System.out.println(stockUpdate(commandSplit[2], commandSplit[3]));
-    } else if (commandSplit[0].equals("price")) {
-      System.out.println(priceUpdate(commandSplit[2], commandSplit[3]));
     }
   }
 
@@ -138,19 +134,13 @@ public class PurchaseCLI {
     return purchaseService.purchaseCountOnDate(date);
   }
 
-  public String purchaseDelete(String invoice) throws SQLException {
+  public Integer purchaseDelete(String invoice) throws SQLException {
     int invoiceNo = Integer.parseInt(invoice);
     purchaseItemService.delete(invoiceNo);
     return purchaseService.purchaseDelete(invoiceNo);
   }
 
-  public String priceUpdate(String code, String price) throws NotANumberException {
-    return productService.priceUpdate(code, price);
-  }
 
-  public String stockUpdate(String code, String stock) throws NotANumberException {
-    return productService.productStockUpdate(code, stock);
-  }
 
   void purchaseHelp() {
     System.out.println(

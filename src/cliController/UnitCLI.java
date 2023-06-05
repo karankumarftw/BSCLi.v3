@@ -16,7 +16,7 @@ public class UnitCLI {
     if (elementCount > 2 && commandSplit[2].equals("help")) {
       switch (commandSplit[1]) {
         case "create" -> unitCreateHelp();
-        case "edit" -> System.out.println(unitEditByEnter());
+        case "edit" ->unitEditByEnter();
         case "delete" -> unitDeleteHelp();
         case "list" -> unitListHelp();
       }
@@ -34,7 +34,7 @@ public class UnitCLI {
                 Boolean.parseBoolean(commandSplit[5]));
         unitService.create(unit);
       } catch (Exception e) {
-        System.out.println(unitCreateByEnter());
+        unitCreateByEnter();
       }
     } else if (commandSplit[1].equals("edit")) {
       try {
@@ -51,7 +51,7 @@ public class UnitCLI {
     }
   }
 
-  String unitCreateByEnter() throws SQLException {
+  void unitCreateByEnter() throws SQLException {
     System.out.print("> ");
     String[] commandSplitted = scanner.nextLine().split("[ ,]");
     Unit unit =
@@ -61,10 +61,10 @@ public class UnitCLI {
             commandSplitted[2],
             Boolean.parseBoolean(commandSplitted[3]));
 
-    return unitService.create(unit);
+    unitService.create(unit);
   }
 
-  String unitEditByEnter() throws SQLException {
+  void unitEditByEnter() throws SQLException {
     System.out.print("> ");
     String[] commandSplit = scanner.nextLine().split("[ ,]");
     Unit unit =
@@ -74,7 +74,7 @@ public class UnitCLI {
             commandSplit[2],
             Boolean.parseBoolean(commandSplit[3]));
 
-    return unitService.edit(unit);
+    unitService.edit(unit);
   }
 
   void unitList() {
@@ -90,7 +90,7 @@ public class UnitCLI {
     }
   }
 
-  String delete(String unitCode) throws SQLException {
+  Integer delete(String unitCode) throws SQLException {
     return unitService.delete(unitCode);
   }
 

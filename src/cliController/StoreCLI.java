@@ -27,10 +27,9 @@ public class StoreCLI {
     } else if (count > 3 && splitByComma[1].equals("edit")) {
       editStore(command);
     }
-
   }
 
-  String storeCreate(String command) throws Exception {
+  void storeCreate(String command) throws Exception {
 
     String[] splitByComma = command.split("[, ]");
     String name = splitByComma[2];
@@ -40,10 +39,10 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.create(store);
+    storeService.create(store);
   }
 
-  String createStoreByEnter() throws Exception {
+  void createStoreByEnter() throws Exception {
     System.out.print("> ");
     String[] splitByComma = scanner.nextLine().split("[, ]");
     String name = splitByComma[0];
@@ -53,10 +52,10 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.create(store);
+    storeService.create(store);
   }
 
-  String editStore(String command) throws Exception {
+  void editStore(String command) throws Exception {
 
     String[] splitByComma = command.split("[, ]");
     String name = splitByComma[2];
@@ -66,10 +65,10 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.edit(store);
+    storeService.edit(store);
   }
 
-  String editStoreByEnter() throws Exception {
+  void editStoreByEnter() throws Exception {
 
     System.out.print("> ");
     String[] splitByComma = scanner.nextLine().split("[, ]");
@@ -80,7 +79,7 @@ public class StoreCLI {
 
     Store store = new Store(name, Long.parseLong(phoneNumber), address, gstNumber);
 
-    return storeService.edit(store);
+    storeService.edit(store);
   }
 
   String deleteStore() throws SQLException {

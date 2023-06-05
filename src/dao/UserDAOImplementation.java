@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 public class UserDAOImplementation implements UserDAO {
 
-  public String delete(String userName) throws SQLException {
+  public Integer delete(String userName) throws SQLException {
     String query = "DELETE FROM USERS WHERE USER_NAME = " + userName;
-    DBConnection.statement.execute(query);
-    return "User deleted successfully";
+    return DBConnection.statement.executeUpdate(query);
   }
 
   public int count() throws SQLException {
@@ -21,7 +20,7 @@ public class UserDAOImplementation implements UserDAO {
     return rs.getInt("count");
   }
 
-  public String create(User user) throws SQLException {
+  public void create(User user) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "INSERT INTO USERS (USER_TYPE,USER_NAME,USER_PASSWORD,USER_FIRSTNAME,USER_LASTNAME,USER_PHONENUMBER) VALUES (?,?,?,?,?,?)");
@@ -32,10 +31,9 @@ public class UserDAOImplementation implements UserDAO {
     ps.setString(5, user.getLastName());
     ps.setLong(6, user.getUserPhoneNumber());
     ps.executeUpdate();
-    return "New user created successfully";
   }
 
-  public String edit(User user) throws SQLException {
+  public void edit(User user) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "UPDATE USERS SET USER_TYPE = ? ,PASSWORD = ? ,FIRST_NAME = ? ,LAST_NAME = ? ,PHONE_NUMBER = ? WHERE USER_NAME = ? ");
@@ -46,9 +44,15 @@ public class UserDAOImplementation implements UserDAO {
     ps.setLong(5, user.getUserPhoneNumber());
     ps.setString(6, user.getUserName());
     ps.executeUpdate();
-    return "user Edit successfully";
   }
 
+  /**
+   * Executes a SQL query and returns the results as an ArrayList of User objects.
+   *
+   * @param query the SQL query to execute
+   * @return an ArrayList containing the User objects resulting from the query
+   * @throws SQLException if an error occurs during the execution of the query
+   */
   private ArrayList<User> results(String query) throws SQLException {
     ArrayList<User> listOfUsers = new ArrayList<>();
     ResultSet rs = DBConnection.statement.executeQuery(query);

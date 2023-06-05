@@ -3,6 +3,13 @@ package service;
 import entity.Store;
 
 public class StoreValidator {
+
+  /**
+   * Validates the given store.
+   *
+   * @param store The store to be validated.
+   * @throws StoreNotValidException If the store is not valid according to business rules.
+   */
   public void validator(Store store) throws StoreNotValidException {
 
     String name = store.getStoreName();

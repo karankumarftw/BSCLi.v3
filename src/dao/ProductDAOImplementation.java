@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ProductDAOImplementation implements ProductDAO {
 
-  public String create(Product proObj) throws SQLException {
+  public void create(Product proObj) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement("insert into products values(?,?,?,?,?,?)");
     ps.setInt(1, proObj.getCode());
@@ -19,10 +19,9 @@ public class ProductDAOImplementation implements ProductDAO {
     ps.setDouble(5, proObj.getPrice());
     ps.setDouble(6, proObj.getStock());
     ps.executeUpdate();
-    return "Product created successfully";
   }
 
-  public String edit(Product proObj) throws SQLException {
+  public void edit(Product proObj) throws SQLException {
     PreparedStatement ps =
         DBConnection.connection.prepareStatement(
             "update products set name = ?, unit = ?, type = ?, price = ?, stock = ? where code = ? ");
@@ -33,15 +32,21 @@ public class ProductDAOImplementation implements ProductDAO {
     ps.setDouble(5, proObj.getStock());
     ps.setInt(6, proObj.getCode());
     ps.executeUpdate();
-    return "Product created successfully";
   }
 
-  public String delete(String data) throws SQLException {
+  public Integer delete(String data) throws SQLException {
     String query = "update products set is_deleted = true where code =" + data;
-    DBConnection.statement.execute(query);
-    return "Product deleted successfully";
+    int rowsAffected = DBConnection.statement.executeUpdate(query);
+    return rowsAffected;
   }
 
+  /**
+   * Executes a SQL query and returns the results as an ArrayList of Product objects.
+   *
+   * @param query the SQL query to execute
+   * @return an ArrayList containing the Product objects resulting from the query
+   * @throws SQLException if an error occurs during the execution of the query
+   */
   private ArrayList<Product> results(String query) throws SQLException {
     ArrayList<Product> listOfProducts = new ArrayList<>();
     ResultSet rs = DBConnection.statement.executeQuery(query);
@@ -139,24 +144,5 @@ public class ProductDAOImplementation implements ProductDAO {
       itemPrice = rs.getInt("product_price");
     }
     return itemPrice;
-  }
-
-  public String priceUpdate(int code, double price) throws SQLException {
-    PreparedStatement ps =
-        DBConnection.connection.prepareStatement(
-            " UPDATE PRODUCTS SET PRODUCT_PRICE = ? WHERE CODE = ?");
-    ps.setDouble(1, price);
-    ps.setInt(2, code);
-    ps.executeUpdate();
-    return "Price updated successfully";
-  }
-
-  public String stockUpdate(int code, double stock) throws SQLException {
-    PreparedStatement ps =
-        DBConnection.connection.prepareStatement(" UPDATE PRODUCTS SET STOCK = ? WHERE CODE = ?");
-    ps.setDouble(1, stock);
-    ps.setInt(2, code);
-    ps.executeUpdate();
-    return "Stock updated successfully";
   }
 }

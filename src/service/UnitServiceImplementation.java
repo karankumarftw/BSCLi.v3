@@ -9,28 +9,25 @@ public class UnitServiceImplementation implements UnitService {
 	UnitDAOImplementation unitDAO = new UnitDAOImplementation();
 	UnitValidator unitValidator = new UnitValidator();
 
-	public String create(Unit unit) throws SQLException {
+	public void create(Unit unit) throws SQLException {
 
 		try {
 			unitValidator.validator(unit);
-			return unitDAO.create(unit);
+			unitDAO.create(unit);
 		} catch (UnitNotValidException e) {
 			System.out.println(e.getMessage());
 		}
-		return null;
 	}
 
-	public String edit(Unit unit) throws SQLException {
+	public void edit(Unit unit) throws SQLException {
 		try {
 			unitValidator.validator(unit);
-			return unitDAO.edit(unit);
 		} catch (UnitNotValidException e) {
 			System.out.println(e.getMessage());
 		}
-		return null;
 	}
 
-	public String delete(String code) throws SQLException {
+	public Integer delete(String code) throws SQLException {
 		return unitDAO.delete(code);
 	}
 

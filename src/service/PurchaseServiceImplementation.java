@@ -9,11 +9,7 @@ public class PurchaseServiceImplementation implements PurchaseService {
   private final PurchaseDAOImplementation purchaseDAO = new PurchaseDAOImplementation();
 
   public void create(Purchase purchase) throws SQLException {
-
-    boolean successOrFail = purchaseDAO.create(purchase);
-
-    if (successOrFail) {
-    }
+    purchaseDAO.create(purchase);
   }
 
   public ArrayList<Purchase> purchaseList() throws SQLException {
@@ -30,7 +26,7 @@ public class PurchaseServiceImplementation implements PurchaseService {
   }
 
   @Override
-  public String purchaseDelete(Integer invoice) throws SQLException {
+  public Integer purchaseDelete(Integer invoice) throws SQLException {
     return purchaseDAO.delete(invoice);
   }
 }

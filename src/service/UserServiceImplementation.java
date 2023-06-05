@@ -9,21 +9,21 @@ public class UserServiceImplementation implements UserService {
   UserDAOImplementation userDAO = new UserDAOImplementation();
   UserValidator userValidator = new UserValidator();
 
-  public String delete(String userName) throws SQLException {
+  public Integer delete(String userName) throws SQLException {
     return userDAO.delete(userName);
   }
 
-  public String create(User user) throws SQLException {
+  public void create(User user) throws SQLException {
     try {
       userValidator.validator(user);
-      return userDAO.create(user);
+      userDAO.create(user);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-  public String edit(User user) throws SQLException {
-    return userDAO.edit(user);
+  public void edit(User user) throws SQLException {
+    userDAO.edit(user);
   }
 
   public ArrayList<User> list() throws SQLException {
